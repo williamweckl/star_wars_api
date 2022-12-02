@@ -84,7 +84,20 @@ The database chosen to be used at this challenge is PostgreSQL. The reasons behi
 
 ## Setup
 
-### Using ASDF
+### Elixir and it's dependencies
+
+I will suggest two ways to use the Elixir language. 
+
+  * By installing it locally (Using ASDF)
+  * or by running it from inside a docker container.
+
+You can also install the language by common ways (without ASDF or other version tool), but I don't recommend it because it would be very difficult to handle the case that are multiple projects using different versions of Elixir/Erlang and also version upgrades could be easier by using a tool like ASDF.
+
+Running from a container should be easier, but I always like to have a second option because the setup of the integration of the IDE or tool used to write the code with linters and other project libraries inside a docker container can be painfull. Also sometimes we will want to start the server with the interactive console and it is also easier to do that with the language installed locally.
+
+If it is not the case and you just want to run the server, you will probably prefer the docker container approach.
+
+#### Using ASDF
 
 ASDF is a tool version manager that helps the instalation of programming languages and other tools according to the definitions contained within the file `.tool-versions`.
 
@@ -99,12 +112,30 @@ When the plugins are ready, you can install the versions needed by the project:
 
   * `asdf install`
 
+### Using Docker
+
+You just need to have [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed. With these two tools ready, you can skip for the next sections of this guide.
+
+### Database
+
+Instead of having multiple approaches to run the database, we recommend to use it by docker containers because the setup is easier and the problem mentioned above does not apply to the database.
+
+To start the database and other project related services use the command:
+
+```
+make docker.services.start
+```
+
+Of course you can use a local installation of postgres if you want, to do that you need to change the database credentials at the file `config/dev.exs`.
+
+#### Database structure
+
+The database structure setup will happen at the first start of the server.
+
 ## Start
 
 To start the application server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server` or inside Interactive Elixir console (iex) with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.

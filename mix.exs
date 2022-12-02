@@ -53,11 +53,23 @@ defmodule StarWarsAPI.MixProject do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    [
+    default = [
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs --no-start"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
+
+    if Mix.env() == :dev do
+      default ++
+        [
+          "phx.server": [
+            "setup",
+            "phx.server"
+          ]
+        ]
+    else
+      default
+    end
   end
 end

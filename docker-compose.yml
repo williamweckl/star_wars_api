@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    depends_on:
+      - postgres15
+    stdin_open: true
+    tty: true
+    environment:
+      MIX_ENV: dev
+      POSTGRES_HOST: postgres15
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/app
+
+  postgres15:
+    image: postgres:15.1
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    command: postgres -c max_connections=999
+    volumes:
+      - postgres15:/var/lib/postgresql/data
+
+volumes:
+  postgres15:
