@@ -105,3 +105,17 @@ To start the application server:
   * Start the server and related services with the command: `make docker.app.start`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+# Developing
+
+## Linter
+
+For code linting, the library [credo](https://github.com/rrrene/credo) was used.
+
+You can run credo by running the command:
+
+```
+make docker.code.lint
+```
+
+**IMPORTANT NOTICE:** For the above command work, you need to start the application container first using the [start](#start) section instructions.

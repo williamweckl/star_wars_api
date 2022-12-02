@@ -33,10 +33,22 @@ If you wish, you can use a local installation of postgres, to do that you need t
 
 The database structure setup will happen at the first start of the server.
 
-## Start
+## Start the server
 
 To start the application server:
 
   * Start Phoenix API with `mix phx.server` or inside Interactive Elixir console (iex) with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+## Developing
+
+### Linter
+
+For code linting, the library [credo](https://github.com/rrrene/credo) was used.
+
+You can run the linter by running the command:
+
+```
+mix credo 
+```

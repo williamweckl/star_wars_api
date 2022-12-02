@@ -1,4 +1,8 @@
 defmodule StarWarsAPIWeb.Telemetry do
+  @moduledoc """
+  Phoenix generated Telemetry module.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 
