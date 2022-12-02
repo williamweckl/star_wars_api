@@ -106,16 +106,58 @@ To start the application server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-# Developing
+## Developing
 
-## Linter
+### Linter
+
+**IMPORTANT NOTICE:** For the linter command work, you need to start the application container first using the [start](#start) section instructions.
 
 For code linting, the library [credo](https://github.com/rrrene/credo) was used.
 
-You can run credo by running the command:
+You can run credo inside the docker container by running the command:
 
 ```
 make docker.code.lint
 ```
 
-**IMPORTANT NOTICE:** For the above command work, you need to start the application container first using the [start](#start) section instructions.
+You can also pass arguments to the linter command to check a single file or path. To do that follow the example bellow:
+
+```
+ARGS="lib/star_wars_api.ex" make docker.code.lint
+```
+
+### Running tests
+
+**IMPORTANT NOTICE:** For the test commands work, you need to start the application container first using the [start](#start) section instructions.
+
+For unit tests, the tool [ExUnit](https://hexdocs.pm/ex_unit/1.12/ExUnit.html) is being used. ExUnit comes with Elixir without the need of aditional setup.
+
+You can run ExUnit inside the docker container by running the command:
+
+```
+make docker.app.test
+```
+
+You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
+
+```
+ARGS="test/star_wars_api_web/views/error_view_test.exs" make docker.app.test
+```
+
+#### Code Coverage
+
+To check the code coverage, we use the library [ExCoveralls](https://github.com/parroty/excoveralls).
+
+You can run ExUnit with ExCoveralls inside the docker container by running the command:
+
+```
+make docker.app.test_with_coverage
+```
+
+You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
+
+```
+ARGS="test/star_wars_api_web/views/error_view_test.exs" make docker.app.test_with_coverage
+```
+
+The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.

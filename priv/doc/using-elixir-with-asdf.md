@@ -52,3 +52,45 @@ You can run the linter by running the command:
 ```
 mix credo 
 ```
+
+You can also pass arguments to the linter command to check a single file or path. To do that follow the example bellow:
+
+```
+mix credo lib/star_wars_api.ex
+```
+
+### Running tests
+
+**IMPORTANT NOTICE:** For the test commands work, you need to start the application container first using the [start](#start) section instructions.
+
+For unit tests, the tool [ExUnit](https://hexdocs.pm/ex_unit/1.12/ExUnit.html) is being used. ExUnit comes with Elixir without the need of aditional setup.
+
+You can run ExUnit inside the docker container by running the command:
+
+```
+mix test
+```
+
+You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
+
+```
+mix test test/star_wars_api_web/views/error_view_test.exs
+```
+
+#### Code Coverage
+
+To check the code coverage, we use the library [ExCoveralls](https://github.com/parroty/excoveralls).
+
+You can run ExUnit with ExCoveralls inside the docker container by running the command:
+
+```
+mix coveralls.html
+```
+
+You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
+
+```
+mix coveralls.html test/star_wars_api_web/views/error_view_test.exs
+```
+
+The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.
