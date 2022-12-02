@@ -51,6 +51,9 @@ defmodule StarWarsAPI.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
 
+      # Enums
+      {:ecto_enum, "~> 1.4"},
+
       # Test
       {:excoveralls, "~> 0.14", only: :test, runtime: false},
       {:junit_formatter, "~> 3.3", only: [:test]},
