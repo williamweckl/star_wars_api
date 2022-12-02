@@ -1,0 +1,117 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  git-shallow-clone: guitarrapc/git-shallow-clone@2.4.0
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - setup
+      - static_analysis:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+
+default_env: &default_env
+  MIX_ENV: test
+
+aliases:
+  - &install_linux_dependencies
+    run:
+      name: install linux dependencies
+      command: apk add git openssh-client curl bash sudo
+
+executors:
+  default:
+    working_directory: /usr/app
+    environment:
+      <<: *default_env
+    docker:
+      - image: hexpm/elixir:1.14.2-erlang-25.1.2-alpine-3.16.2
+      - image: postgres:15.1
+        command: postgres -c max_connections=300
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+jobs:
+  setup:
+    executor: default
+    resource_class: small
+    steps:
+      - *install_linux_dependencies
+
+      - run:
+          name: clean the app folder
+          command: rm -rf /usr/app/*
+      - git-shallow-clone/checkout
+
+      - restore_cache:
+          keys:
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache-main
+            - v1-mix-cache
+      - restore_cache:
+          keys:
+            - v1-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-build-cache-{{ .Branch }}
+            - v1-build-cache-main
+            - v1-build-cache
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix compile --warnings-as-errors
+
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:
+          key: v1-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - .elixir_ls
+            - ~/.mix
+
+      - persist_to_workspace:
+          root: /usr/app
+          paths:
+            - "*"
+
+  static_analysis:
+    executor: default
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /usr/app
+      - run: apk add git
+      - run: mix local.hex --force
+      - run:
+          name: Perform static code analysis using credo
+          command: mix credo
+      - run:
+          name: Verify that code is properly formatted
+          command: mix format --check-formatted
+      - run:
+          name: Checks that the mix.lock file has no unused dependencies
+          command: mix deps.unlock --check-unused
+
+  test:
+    executor: default
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: /usr/app
+      - run: apk add git
+      - run: mix local.hex --force
+      - run: mix coveralls.html --no-deps-check --no-compile
+      - store_test_results: # upload junit test results for display in Test Summary
+          path: /usr/app/_build/test/lib/company_management
+      - store_artifacts:
+          path: /usr/app/cover
+          destination: coverage_results

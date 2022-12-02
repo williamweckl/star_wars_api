@@ -77,6 +77,8 @@ You can also pass arguments to the command to test a single file or path. To do 
 mix test test/star_wars_api_web/views/error_view_test.exs
 ```
 
+Tests are also run at CI automatically every pull request and for the main branch.
+
 #### Code Coverage
 
 To check the code coverage, we use the library [ExCoveralls](https://github.com/parroty/excoveralls).
@@ -94,3 +96,5 @@ mix coveralls.html test/star_wars_api_web/views/error_view_test.exs
 ```
 
 The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.
+
+Coverage checks are also run at CI automatically every pull request and for the main branch.

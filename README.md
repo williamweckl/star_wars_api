@@ -108,6 +108,14 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Developing
 
+### CI
+
+After submitting a Pull Request (PR) or a PR is merged to the main branch, a CI tool ([CircleCI](https://circleci.com/)) will run all the tests, the code linter and it will also check for compilation warnings.
+
+The new application code needs to pass the coverage (100% check), the unit tests and the linter to be able to be merged.
+
+If you are developing new features, you probably don't want to wait for the CI every commit/push you do. You can perform this checks by running the specific tools instructed bellow.
+
 ### Linter
 
 **IMPORTANT NOTICE:** For the linter command work, you need to start the application container first using the [start](#start) section instructions.
