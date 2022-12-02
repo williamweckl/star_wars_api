@@ -27,8 +27,11 @@ docker.app.test:	## Run ExUnit test tool inside docker container.
 docker.app.test_with_coverage:	## Run ExUnit test tool with coverage check inside docker container.
 	CONTAINER_ID=$$(docker ps -f name=api -q) && docker exec -it $$CONTAINER_ID /bin/bash -c "MIX_ENV=test mix coveralls.html $(ARGS)"
 
-docker.code.lint:	## Run linter inside docker container.
+docker.code.lint:	 ## Run linter inside docker container.
 	CONTAINER_ID=$$(docker ps -f name=api -q) && docker exec -it $$CONTAINER_ID mix credo $(ARGS)
+
+docker.code.format:  ## Run elixir formatter inside docker container.
+	CONTAINER_ID=$$(docker ps -f name=api -q) && docker exec -it $$CONTAINER_ID mix format
 
 docker.services.start:	## Start services containers.
 	docker-compose -f docker-compose-services.yml -p star_wars up -d --remove-orphans

@@ -24,79 +24,11 @@ Other decisions made are specified at this README.
   * Get a planet by it's ID.
   * Remove a planet.
 
-## Technologies used
+## Documentation and guides
 
-### Erlang
-
-Erlang is a programming language known for creating low-latency, distributed and fault-tolerant systems.
-
-All the code writen by this project is compiled to be excecuted by the Erlang VM (Beam).
-
-### Elixir
-
-Elixir is a functional language built on the top of the Erlang VM. Every code writen in Elixir is compiled and runs on the Erlang VM.
-
-Erlang is a very verbose language created at 1986 and Elixir manages to take advantage of what Erlang has good but with a more friendly and productive syntax.
-
-You don't have to understand Erlang code to understand the code writen at this project, you just need to understand Elixir code.
-
-#### Why use Elixir for this challenge?
-
-The company behind this challenge (TOP SECRET COMPANY - HAHAHA) does not use Elixir, but they didn't specify the language needed to write the code either.
-
-Elixir was chosen for this project just because I am more familiar with and I believe that a functional language helps us to keep things more self contained, with less side effects at the code than an Object Oriented approach. The web framework (Phoenix) also helps a lot with RESTful API's building that is the purpose of this project.
-
-#### Tradeoffs
-
-Besides of the benefits of the Elixir language, there is no silver bullet. Elixir is a very performant and productive language, but is not one of the most popular languages and this can make hiring new people a little difficult.
-
-Since this project is just a challenge, the negative hiring impacts does not apply.
-
-#### Don't know Elixir?
-
-Not familiar with Elixir yet and need to read this code? No problem, Elixir code should be easy to understand but if you need there are some materials that can help you get more familiar:
-
-  * [Elixir guides](https://elixir-lang.org/getting-started/introduction.html)
-  * [Elixir documentation](https://hexdocs.pm/elixir/Kernel.html)
-
-### Phoenix framework
-
-Phoenix is a web framework for the Elixir language and was chosen because it has a lot of tools that helps us building a REST API that is the purpose of this challenge. Phoenix is also the most popular web framework for Elixir.
-
-#### Don't know Phoenix?
-
-Don't worry. It has a structure that should be easy to understand, but I've compiled some links that could help you understand even more.
-
-This bellow links can help:
-
-  * [Official website](https://www.phoenixframework.org/)
-  * [Guides](https://hexdocs.pm/phoenix/overview.html)
-  * [Docs](https://hexdocs.pm/phoenix)
-  * [Forum](https://elixirforum.com/c/phoenix-forum)
-  * [Source](https://github.com/phoenixframework/phoenix)
-
-### PostgreSQL
-
-The database chosen to be used at this challenge is PostgreSQL. The reasons behind that decision are:
-
-  * It is free
-  * It's features are more than enough to build this challenge
-  * Nice compatibility with Phoenix framework
-  * Is the most common choice for Phoenix applications
-
-## Setup
-
-The project is dockerized, this means that all commands and the web server can be run by using docker containers. This should be the easier way to run the application and the setup is being made automatically at the first run by using docker commands, without any installation of the database, language and libraries.
-
-You just need to have [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed. With these two tools ready, you can run the application by folling the section to [start the APP](#start).
-
-If you wish, you can still install Elixir language and run this project. I usually prefer this approach when I'm an active developer of the project because integrating IDE's or other tools to write code with linters and other language tools can be painfull. If you want, [here is a guide to install Elixir using ASDF](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/using-elixir-with-asdf.md).
-
-You can also install the language by common ways (without ASDF or other version tool), but I don't recommend it because it would be very difficult to handle the case that are multiple projects using different versions of Elixir/Erlang and also version upgrades could be easier by using a tool like ASDF.
-
-### Database structure
-
-The database structure setup will happen at the first start of the server.
+  * [Technologies used](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/techs-used.md)
+  * [Setup](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/setup.md)
+  * [Developing, testing, linting](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/developing.md)
 
 ## Start
 
@@ -105,67 +37,3 @@ To start the application server:
   * Start the server and related services with the command: `make docker.app.start`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-## Developing
-
-### CI
-
-After submitting a Pull Request (PR) or a PR is merged to the main branch, a CI tool ([CircleCI](https://circleci.com/)) will run all the tests, the code linter and it will also check for compilation warnings.
-
-The new application code needs to pass the coverage (100% check), the unit tests and the linter to be able to be merged.
-
-If you are developing new features, you probably don't want to wait for the CI every commit/push you do. You can perform this checks by running the specific tools instructed bellow.
-
-### Linter
-
-**IMPORTANT NOTICE:** For the linter command work, you need to start the application container first using the [start](#start) section instructions.
-
-For code linting, the library [credo](https://github.com/rrrene/credo) was used.
-
-You can run credo inside the docker container by running the command:
-
-```
-make docker.code.lint
-```
-
-You can also pass arguments to the linter command to check a single file or path. To do that follow the example bellow:
-
-```
-ARGS="lib/star_wars_api.ex" make docker.code.lint
-```
-
-### Running tests
-
-**IMPORTANT NOTICE:** For the test commands work, you need to start the application container first using the [start](#start) section instructions.
-
-For unit tests, the tool [ExUnit](https://hexdocs.pm/ex_unit/1.12/ExUnit.html) is being used. ExUnit comes with Elixir without the need of aditional setup.
-
-You can run ExUnit inside the docker container by running the command:
-
-```
-make docker.app.test
-```
-
-You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
-
-```
-ARGS="test/star_wars_api_web/views/error_view_test.exs" make docker.app.test
-```
-
-#### Code Coverage
-
-To check the code coverage, we use the library [ExCoveralls](https://github.com/parroty/excoveralls).
-
-You can run ExUnit with ExCoveralls inside the docker container by running the command:
-
-```
-make docker.app.test_with_coverage
-```
-
-You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
-
-```
-ARGS="test/star_wars_api_web/views/error_view_test.exs" make docker.app.test_with_coverage
-```
-
-The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.

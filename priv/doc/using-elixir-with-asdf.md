@@ -59,9 +59,19 @@ You can also pass arguments to the linter command to check a single file or path
 mix credo lib/star_wars_api.ex
 ```
 
-### Running tests
+## Code format
 
-**IMPORTANT NOTICE:** For the test commands work, you need to start the application container first using the [start](#start) section instructions.
+Elixir has a built in code formatter that helps us keep our code formatted according to community standards.
+
+You can run the formatter with the bellow command:
+
+```
+mix format
+```
+
+The command usually does not have an output, it just formats the files. You can run `git status` to see the files changed.
+
+### Running tests
 
 For unit tests, the tool [ExUnit](https://hexdocs.pm/ex_unit/1.12/ExUnit.html) is being used. ExUnit comes with Elixir without the need of aditional setup.
 
