@@ -32,3 +32,11 @@ The command above will start only the related services and the application can b
 If you wish, you can use a local installation of postgres, to do that you need to change the database credentials at the file `config/dev.exs`.
 
 The database structure setup will happen at the first start of the server.
+
+## Start
+
+To start the application server:
+
+  * Start Phoenix API with `mix phx.server` or inside Interactive Elixir console (iex) with `iex -S mix phx.server`
+
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
