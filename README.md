@@ -50,7 +50,7 @@ Elixir was chosen for this project just because I am more familiar with and I be
 
 Besides of the benefits of the Elixir language, there is no silver bullet. Elixir is a very performant and productive language, but is not one of the most popular languages and this can make hiring a little difficult.
 
-Since this project is just a challenge, the negative impacts does not apply.
+Since this project is just a challenge, the negative hiring impacts does not apply.
 
 #### Don't know Elixir?
 
@@ -79,7 +79,8 @@ The database chosen to be used at this challenge is PostgreSQL. The reasons behi
 
   * It is free
   * It's features are more than enough to build this challenge
-  * High level of compatibility with phoenix framework
+  * Nice compatibility with Phoenix framework
+  * Is the most common choice for Phoenix applications
 
 ## Setup
 
