@@ -29,6 +29,11 @@ Other decisions made are specified at this README.
   * [Technologies used](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/techs-used.md)
   * [Setup](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/setup.md)
   * [Developing, testing, linting](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/developing.md)
+  * [Entities](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/entities.md)
+
+## Technical decisions
+
+  * [Entities IDs](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/ids.md)
 
 ## Start
 
