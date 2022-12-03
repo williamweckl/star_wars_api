@@ -2,6 +2,8 @@ defmodule StarWarsTest do
   use StarWars.DataCase
   import Mock
 
+  alias CleanArchitecture.Pagination
+
   alias Ecto.Changeset
   alias StarWars.Contracts
   alias StarWars.Interactors
@@ -217,6 +219,90 @@ defmodule StarWarsTest do
   end
 
   # Planet
+
+  describe "list_planets/1" do
+    test "calls right interactor and handles output for empty list" do
+      pagination = %Pagination{
+        entries: [],
+        page_number: 1,
+        page_size: 1,
+        total_entries: 0,
+        total_pages: 1
+      }
+
+      with_mocks([
+        {Interactors.Planet.List, [], [call: fn _input -> pagination end]},
+        {Contracts.Planet.List, [], [validate_input: fn attrs -> {:ok, attrs} end]}
+      ]) do
+        input = %{name: ""}
+        assert pagination == StarWars.list_planets(input)
+
+        assert_called_exactly(Interactors.Planet.List.call(input), 1)
+        assert_called_exactly(Contracts.Planet.List.validate_input(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles output for non empty list" do
+      pagination = %Pagination{
+        entries: [%Planet{}],
+        page_number: 1,
+        page_size: 1,
+        total_entries: 1,
+        total_pages: 1
+      }
+
+      with_mocks([
+        {Interactors.Planet.List, [], [call: fn _input -> pagination end]},
+        {Contracts.Planet.List, [], [validate_input: fn attrs -> {:ok, attrs} end]}
+      ]) do
+        input = %{name: ""}
+        assert pagination == StarWars.list_planets(input)
+
+        assert_called_exactly(Interactors.Planet.List.call(input), 1)
+        assert_called_exactly(Contracts.Planet.List.validate_input(input), 1)
+      end
+    end
+
+    test "calls right interactor and raises when output is not a pagination" do
+      not_pagination_output = %{
+        entries: [%Planet{}],
+        page_number: 1,
+        page_size: 1,
+        total_entries: 1,
+        total_pages: 1
+      }
+
+      with_mocks([
+        {Interactors.Planet.List, [], [call: fn _input -> not_pagination_output end]},
+        {Contracts.Planet.List, [], [validate_input: fn attrs -> {:ok, attrs} end]}
+      ]) do
+        input = %{name: ""}
+
+        assert_raise MatchError, fn ->
+          StarWars.list_planets(input)
+        end
+
+        assert_called_exactly(Interactors.Planet.List.call(input), 1)
+        assert_called_exactly(Contracts.Planet.List.validate_input(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles invalid input" do
+      with_mocks([
+        {Interactors.Planet.List, [], [call: fn _input -> :ok end]},
+        {Contracts.Planet.List, [],
+         [validate_input: fn _attrs -> {:error, %Ecto.Changeset{}} end]}
+      ]) do
+        input = %{name: ""}
+
+        assert {:error, %Ecto.Changeset{}} ==
+                 StarWars.list_planets(input)
+
+        assert_not_called(Interactors.Planet.List.call(input))
+        assert_called_exactly(Contracts.Planet.List.validate_input(input), 1)
+      end
+    end
+  end
 
   describe "upsert_planet/1" do
     test "calls right interactor and handles :ok output" do

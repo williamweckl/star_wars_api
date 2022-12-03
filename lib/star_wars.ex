@@ -110,6 +110,31 @@ defmodule StarWars do
   # Planet
 
   @doc """
+  Returns the list of planets.
+
+  ## Examples
+      iex> list_planets()
+      %Pagination{
+        entries: [], page_number: 1, page_size: 10, total_entries: 0, total_pages: 0
+      }
+
+      iex> list_planets(%{page: 2, page_size: 4})
+      %Pagination{
+        entries: [%Planet{}, ...], page_number: 2, page_size: 4, total_entries: 8, total_pages: 2
+      }
+  """
+  def list_planets(input \\ %{}) do
+    case Contracts.Planet.List.validate_input(input) do
+      {:ok, validated_input} ->
+        %Pagination{entries: _, page_number: _, page_size: _, total_entries: _, total_pages: _} =
+          Interactors.Planet.List.call(validated_input)
+
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  @doc """
   Creates or updates a planet.
 
   ## Examples
