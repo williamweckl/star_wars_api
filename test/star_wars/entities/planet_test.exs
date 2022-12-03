@@ -115,10 +115,9 @@ defmodule StarWars.Entities.PlanetTest do
 
       assert record.climates == [climate_one, climate_two]
 
-      reloaded_record =
-        record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:climates)
+      reloaded_record = record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:climates)
 
-      assert reloaded_record.climates == [climate_one, climate_two]
+      assert Enum.sort(reloaded_record.climates) == Enum.sort([climate_one, climate_two])
     end
 
     test "ables to insert related movies" do
@@ -134,7 +133,7 @@ defmodule StarWars.Entities.PlanetTest do
       assert record.movies == [movie_one, movie_two]
 
       reloaded_record = record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:movies)
-      assert reloaded_record.movies == [movie_one, movie_two]
+      assert Enum.sort(reloaded_record.movies) == Enum.sort([movie_one, movie_two])
     end
 
     test "ables to insert related terrains" do
@@ -149,10 +148,9 @@ defmodule StarWars.Entities.PlanetTest do
 
       assert record.terrains == [terrain_one, terrain_two]
 
-      reloaded_record =
-        record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:terrains)
+      reloaded_record = record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:terrains)
 
-      assert reloaded_record.terrains == [terrain_one, terrain_two]
+      assert Enum.sort(reloaded_record.terrains) == Enum.sort([terrain_one, terrain_two])
     end
   end
 end
