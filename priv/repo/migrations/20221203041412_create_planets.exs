@@ -14,6 +14,10 @@ defmodule StarWarsAPI.Repo.Migrations.CreatePlanets do
     end
 
     create index(:planets, :deleted_at)
-    create unique_index(:planets, [:integration_source, :integration_id], name: "unique_planet_integration_id", where: "deleted_at IS NULL")
+
+    create unique_index(:planets, [:integration_source, :integration_id],
+             name: "unique_planet_integration_id",
+             where: "deleted_at IS NULL"
+           )
   end
 end
