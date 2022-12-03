@@ -54,3 +54,13 @@ Having different timezones at database can become messy and the application can 
 
   * deleted_at
 
+### movie_directors
+
+| Field              | Description                                               | Type                       | Rules / Validations                           |
+|--------------------|-----------------------------------------------------------|----------------------------|-----------------------------------------------|
+| id                 | The identifier of the movie director.                     | uuid v4                    | PK                                            |
+| name               | The name of the movie director.                           | character varying          | Not null, Limit 255 characters                |
+| integration_source | The related integration source.                           | character varying          | Not null, Valid integration source enum value |
+| inserted_at        | Timestamp of when the data was inserted.                  | timestamp without timezone | Not null                                      |
+| updated_at         | Timestamp of when the data was updated for the last time. | timestamp without timezone | Not null                                      |
+| deleted_at         | Timestamp of when the data was deleted.                   | timestamp without timezone |                                               |
