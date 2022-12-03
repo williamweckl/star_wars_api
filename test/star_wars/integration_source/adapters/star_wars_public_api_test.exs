@@ -462,7 +462,7 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPITest do
                     }
                   ],
                   movies: [
-                    ok: %StarWars.IntegrationSource.MovieResponse{
+                    %StarWars.IntegrationSource.MovieResponse{
                       title: "Attack of the Clones",
                       release_date: ~D[2002-05-16],
                       integration_source: :star_wars_public_api,

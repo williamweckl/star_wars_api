@@ -266,4 +266,70 @@ defmodule StarWarsTest do
       end
     end
   end
+
+  describe "load_planet_from_integration/1" do
+    test "calls right interactor and handles :ok output" do
+      with_mocks([
+        {Interactors.Planet.LoadFromIntegration, [], [call: fn _input -> {:ok, %Planet{}} end]},
+        {Contracts.Planet.LoadFromIntegration, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:ok, %Planet{}} == StarWars.load_planet_from_integration(input)
+
+        assert_called_exactly(Interactors.Planet.LoadFromIntegration.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles :error output" do
+      with_mocks([
+        {Interactors.Planet.LoadFromIntegration, [],
+         [call: fn _input -> {:error, %Changeset{}} end]},
+        {Contracts.Planet.LoadFromIntegration, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:error, %Changeset{}} == StarWars.load_planet_from_integration(input)
+
+        assert_called_exactly(Interactors.Planet.LoadFromIntegration.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles not changeset :error output" do
+      with_mocks([
+        {Interactors.Planet.LoadFromIntegration, [],
+         [call: fn _input -> {:error, :invalid_response} end]},
+        {Contracts.Planet.LoadFromIntegration, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:error, :invalid_response} == StarWars.load_planet_from_integration(input)
+
+        assert_called_exactly(Interactors.Planet.LoadFromIntegration.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and raises when output is not handled" do
+      with_mocks([
+        {Interactors.Planet.LoadFromIntegration, [], [call: fn _input -> %Planet{} end]},
+        {Contracts.Planet.LoadFromIntegration, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert_raise WithClauseError, fn ->
+          StarWars.load_planet_from_integration(input)
+        end
+
+        assert_called_exactly(Interactors.Planet.LoadFromIntegration.call(input), 1)
+      end
+    end
+  end
 end

@@ -129,4 +129,37 @@ defmodule StarWars do
         {:error, changeset}
     end
   end
+
+  @doc """
+  Loads a planet and related data from the integration source.
+
+  If the planet or the related records already exists, they will be updated.
+  If the records does not exist yet, they will be created.
+
+  After getting the data from the integration source, the hole persistence process is being made inside a transaction.
+  This means that if some errors happens, no data is persisted.
+
+  ## Examples
+      iex> load_planet_from_integration(%{field: "value"})
+      {:ok, %Planet{}}
+
+      iex> load_planet_from_integration(%{field: "value"})
+      {:error, :invalid_response}
+
+      iex> load_planet_from_integration(%{field: "value"})
+      {:error, %StarWars.HTTPClientResponse{status_code: 500, body: "", headers: []}}
+  """
+  def load_planet_from_integration(%{} = input) do
+    with {:ok, validated_input} <- Contracts.Planet.LoadFromIntegration.validate_input(input),
+         {:ok, %Planet{} = planet} <-
+           Interactors.Planet.LoadFromIntegration.call(validated_input) do
+      {:ok, planet}
+    else
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+
+      {:error, error} ->
+        {:error, error}
+    end
+  end
 end

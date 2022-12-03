@@ -226,6 +226,11 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
     if movie_error_response do
       movie_error_response
     else
+      movies =
+        Enum.map(movies, fn {:ok, movie} ->
+          movie
+        end)
+
       planet_response = %PlanetResponse{
         name: name,
         integration_source: :star_wars_public_api,
