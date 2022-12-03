@@ -15,6 +15,9 @@ help:			## Show this help.
 docker.app.start:	## Start APP containers.
 	docker-compose run -p 4000:4000 --rm api --name api
 
+docker.app.load_planet_from_integration:	## Start APP containers.
+	CONTAINER_ID=$$(docker ps -f name=api -q) && docker exec -it $$CONTAINER_ID mix load_planet_from_integration $(ARGS)
+
 docker.app.stop:	## Stop APP containers.
 	docker-compose stop
 
