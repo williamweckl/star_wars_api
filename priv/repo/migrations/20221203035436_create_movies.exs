@@ -16,5 +16,6 @@ defmodule StarWarsAPI.Repo.Migrations.CreateMovies do
     end
 
     create index(:movies, :deleted_at)
+    create unique_index(:movies, [:integration_source, :integration_id], name: "unique_movie_integration_id", where: "deleted_at IS NULL")
   end
 end

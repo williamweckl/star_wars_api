@@ -85,3 +85,4 @@ Having different timezones at database can become messy and the application can 
 #### Indexes
 
   * deleted_at
+  * [integration_source, integration_id] unique for not deleted records
