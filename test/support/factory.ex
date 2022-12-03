@@ -7,6 +7,7 @@ defmodule StarWarsAPI.Support.Factory do
   use ExMachina.Ecto, repo: StarWarsAPI.Repo
 
   alias StarWarsAPI.Entities.Climate
+  alias StarWarsAPI.Entities.MovieDirector
   alias StarWarsAPI.Entities.Terrain
 
   def climate_factory do
@@ -26,6 +27,17 @@ defmodule StarWarsAPI.Support.Factory do
 
     %Terrain{
       id: name |> String.replace(" ", "_") |> String.downcase(),
+      name: name,
+      integration_source:
+        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+      deleted_at: nil
+    }
+  end
+
+  def movie_director_factory do
+    name = sequence(:name, &"Director #{&1}")
+
+    %MovieDirector{
       name: name,
       integration_source:
         StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
