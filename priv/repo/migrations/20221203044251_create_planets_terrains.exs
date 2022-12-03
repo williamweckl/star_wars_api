@@ -9,6 +9,8 @@ defmodule StarWarsAPI.Repo.Migrations.CreatePlanetsTerrains do
       add :terrain_id, references(:terrains, type: :string), null: false
     end
 
-    create unique_index(:planets_terrains, [:planet_id, :terrain_id], name: "unique_planets_terrains")
+    create unique_index(:planets_terrains, [:planet_id, :terrain_id],
+             name: "unique_planets_terrains"
+           )
   end
 end

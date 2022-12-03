@@ -108,26 +108,28 @@ defmodule StarWarsAPI.Entities.PlanetTest do
       climate_two = Factory.insert(:climate)
 
       assert {:ok, record} =
-        @valid_attrs
-        |> Planet.changeset()
-        |> put_assoc(:climates, [climate_one, climate_two])
-        |> Repo.insert()
+               @valid_attrs
+               |> Planet.changeset()
+               |> put_assoc(:climates, [climate_one, climate_two])
+               |> Repo.insert()
 
       assert record.climates == [climate_one, climate_two]
 
-      reloaded_record = record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:climates)
+      reloaded_record =
+        record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:climates)
+
       assert reloaded_record.climates == [climate_one, climate_two]
     end
 
     test "ables to insert related movies" do
-      movie_one = Factory.insert(:movie)
-      movie_two = Factory.insert(:movie)
+      movie_one = Factory.insert(:movie) |> StarWarsAPI.Repo.reload!()
+      movie_two = Factory.insert(:movie) |> StarWarsAPI.Repo.reload!()
 
       assert {:ok, record} =
-        @valid_attrs
-        |> Planet.changeset()
-        |> put_assoc(:movies, [movie_one, movie_two])
-        |> Repo.insert()
+               @valid_attrs
+               |> Planet.changeset()
+               |> put_assoc(:movies, [movie_one, movie_two])
+               |> Repo.insert()
 
       assert record.movies == [movie_one, movie_two]
 
@@ -140,14 +142,16 @@ defmodule StarWarsAPI.Entities.PlanetTest do
       terrain_two = Factory.insert(:terrain)
 
       assert {:ok, record} =
-        @valid_attrs
-        |> Planet.changeset()
-        |> put_assoc(:terrains, [terrain_one, terrain_two])
-        |> Repo.insert()
+               @valid_attrs
+               |> Planet.changeset()
+               |> put_assoc(:terrains, [terrain_one, terrain_two])
+               |> Repo.insert()
 
       assert record.terrains == [terrain_one, terrain_two]
 
-      reloaded_record = record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:terrains)
+      reloaded_record =
+        record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:terrains)
+
       assert reloaded_record.terrains == [terrain_one, terrain_two]
     end
   end

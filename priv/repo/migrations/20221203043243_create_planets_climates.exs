@@ -9,6 +9,8 @@ defmodule StarWarsAPI.Repo.Migrations.CreatePlanetsClimates do
       add :climate_id, references(:climates, type: :string), null: false
     end
 
-    create unique_index(:planets_climates, [:planet_id, :climate_id], name: "unique_planets_climates")
+    create unique_index(:planets_climates, [:planet_id, :climate_id],
+             name: "unique_planets_climates"
+           )
   end
 end
