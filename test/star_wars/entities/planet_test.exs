@@ -1,12 +1,12 @@
-defmodule StarWarsAPI.Entities.PlanetTest do
-  use StarWarsAPI.DataCase
+defmodule StarWars.Entities.PlanetTest do
+  use StarWars.DataCase
 
-  alias StarWarsAPI.Entities.Planet
+  alias StarWars.Entities.Planet
 
   @valid_attrs %{
     name: "Tatooine",
     integration_source:
-      StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+      StarWars.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
     integration_id: "#{:rand.uniform(999_999_999)}"
   }
 
@@ -116,14 +116,14 @@ defmodule StarWarsAPI.Entities.PlanetTest do
       assert record.climates == [climate_one, climate_two]
 
       reloaded_record =
-        record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:climates)
+        record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:climates)
 
       assert reloaded_record.climates == [climate_one, climate_two]
     end
 
     test "ables to insert related movies" do
-      movie_one = Factory.insert(:movie) |> StarWarsAPI.Repo.reload!()
-      movie_two = Factory.insert(:movie) |> StarWarsAPI.Repo.reload!()
+      movie_one = Factory.insert(:movie) |> StarWars.Repo.reload!()
+      movie_two = Factory.insert(:movie) |> StarWars.Repo.reload!()
 
       assert {:ok, record} =
                @valid_attrs
@@ -133,7 +133,7 @@ defmodule StarWarsAPI.Entities.PlanetTest do
 
       assert record.movies == [movie_one, movie_two]
 
-      reloaded_record = record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:movies)
+      reloaded_record = record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:movies)
       assert reloaded_record.movies == [movie_one, movie_two]
     end
 
@@ -150,7 +150,7 @@ defmodule StarWarsAPI.Entities.PlanetTest do
       assert record.terrains == [terrain_one, terrain_two]
 
       reloaded_record =
-        record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:terrains)
+        record |> StarWars.Repo.reload!() |> StarWars.Repo.preload(:terrains)
 
       assert reloaded_record.terrains == [terrain_one, terrain_two]
     end

@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.Repo.Migrations.CreateMovieDirectors do
+defmodule StarWars.Repo.Migrations.CreateMovieDirectors do
   use Ecto.Migration
 
   def change do

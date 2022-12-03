@@ -1,12 +1,12 @@
-defmodule StarWarsAPIWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :star_wars_api
+defmodule StarWarsAPI.Endpoint do
+  use Phoenix.Endpoint, otp_app: :star_wars
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_star_wars_api_key",
+    key: "_star_wars_key",
     signing_salt: "zJeNBb7A"
   ]
 
@@ -18,7 +18,7 @@ defmodule StarWarsAPIWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :star_wars_api,
+    from: :star_wars,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
@@ -26,7 +26,7 @@ defmodule StarWarsAPIWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :star_wars_api
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :star_wars
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -44,5 +44,5 @@ defmodule StarWarsAPIWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug StarWarsAPIWeb.Router
+  plug StarWarsAPI.Router
 end

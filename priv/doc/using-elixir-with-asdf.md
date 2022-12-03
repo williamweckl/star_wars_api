@@ -56,7 +56,7 @@ mix credo
 You can also pass arguments to the linter command to check a single file or path. To do that follow the example bellow:
 
 ```
-mix credo lib/star_wars_api.ex
+mix credo lib/star_wars.ex
 ```
 
 ## Code format
@@ -84,7 +84,7 @@ mix test
 You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
 
 ```
-mix test test/star_wars_api_web/views/error_view_test.exs
+mix test test/star_wars_api/views/error_view_test.exs
 ```
 
 Tests are also run at CI automatically every pull request and for the main branch.
@@ -102,7 +102,7 @@ mix coveralls.html
 You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
 
 ```
-mix coveralls.html test/star_wars_api_web/views/error_view_test.exs
+mix coveralls.html test/star_wars_api/views/error_view_test.exs
 ```
 
 The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.

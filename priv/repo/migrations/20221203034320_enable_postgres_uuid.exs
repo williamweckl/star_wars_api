@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.Repo.Migrations.EnablePostgresUUID do
+defmodule StarWars.Repo.Migrations.EnablePostgresUUID do
   use Ecto.Migration
 
   def up do

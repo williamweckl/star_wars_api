@@ -1,12 +1,12 @@
-defmodule StarWarsAPI.Entities.MovieDirectorTest do
-  use StarWarsAPI.DataCase
+defmodule StarWars.Entities.MovieDirectorTest do
+  use StarWars.DataCase
 
-  alias StarWarsAPI.Entities.MovieDirector
+  alias StarWars.Entities.MovieDirector
 
   @valid_attrs %{
     name: "George Lucas",
     integration_source:
-      StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random()
+      StarWars.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random()
   }
 
   describe "changeset" do

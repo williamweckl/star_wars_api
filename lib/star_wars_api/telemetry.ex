@@ -1,4 +1,4 @@
-defmodule StarWarsAPIWeb.Telemetry do
+defmodule StarWarsAPI.Telemetry do
   @moduledoc """
   Phoenix generated Telemetry module.
   """
@@ -35,23 +35,23 @@ defmodule StarWarsAPIWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("star_wars_api.repo.query.total_time",
+      summary("star_wars.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("star_wars_api.repo.query.decode_time",
+      summary("star_wars.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("star_wars_api.repo.query.query_time",
+      summary("star_wars.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("star_wars_api.repo.query.queue_time",
+      summary("star_wars.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("star_wars_api.repo.query.idle_time",
+      summary("star_wars.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
@@ -69,7 +69,7 @@ defmodule StarWarsAPIWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {StarWarsAPIWeb, :count_users, []}
+      # {StarWarsAPI, :count_users, []}
     ]
   end
 end

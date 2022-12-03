@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.Repo.Migrations.CreatePlanetsTerrains do
+defmodule StarWars.Repo.Migrations.CreatePlanetsTerrains do
   use Ecto.Migration
 
   def change do

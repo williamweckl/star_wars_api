@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.Repo.Migrations.CreateIntegrationSourcesEnum do
+defmodule StarWars.Repo.Migrations.CreateIntegrationSourcesEnum do
   use Ecto.Migration
 
   def up do

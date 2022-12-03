@@ -1,10 +1,10 @@
 {
   "skip_files": [
     "test",
-    "lib/star_wars_api/application.ex",
-    "lib/star_wars_api_web.ex",
-    "lib/star_wars_api_web/telemetry.ex",
-    "lib/mix/tasks/release_tasks.ex"
+    "lib/star_wars/application.ex",
+    "lib/star_wars_api.ex",
+    "lib/star_wars_api/telemetry.ex",
+    "lib/star_wars_api/views/error_helpers.ex"
   ],
   "coverage_options": {
     "minimum_coverage": 100

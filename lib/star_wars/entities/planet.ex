@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.Entities.Planet do
+defmodule StarWars.Entities.Planet do
   @moduledoc """
   Planet entity.
 
@@ -10,23 +10,23 @@ defmodule StarWarsAPI.Entities.Planet do
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "planets" do
     field :name, :string
-    field :integration_source, StarWarsAPI.Enums.IntegrationSource
+    field :integration_source, StarWars.Enums.IntegrationSource
     field :integration_id, :string
 
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
 
-    many_to_many :climates, StarWarsAPI.Entities.Climate,
+    many_to_many :climates, StarWars.Entities.Climate,
       join_through: "planets_climates",
       on_delete: :delete_all,
       unique: true
 
-    many_to_many :movies, StarWarsAPI.Entities.Movie,
+    many_to_many :movies, StarWars.Entities.Movie,
       join_through: "planets_movies",
       on_delete: :delete_all,
       unique: true
 
-    many_to_many :terrains, StarWarsAPI.Entities.Terrain,
+    many_to_many :terrains, StarWars.Entities.Terrain,
       join_through: "planets_terrains",
       on_delete: :delete_all,
       unique: true

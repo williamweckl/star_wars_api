@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.DataCase do
+defmodule StarWars.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule StarWarsAPI.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use StarWarsAPI.DataCase, async: true`, although
+  by setting `use StarWars.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -18,19 +18,19 @@ defmodule StarWarsAPI.DataCase do
 
   using do
     quote do
-      alias StarWarsAPI.Repo
+      alias StarWars.Repo
 
-      alias StarWarsAPI.Support.Factory
+      alias StarWars.Support.Factory
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import StarWarsAPI.DataCase
+      import StarWars.DataCase
     end
   end
 
   setup tags do
-    StarWarsAPI.DataCase.setup_sandbox(tags)
+    StarWars.DataCase.setup_sandbox(tags)
     :ok
   end
 
@@ -38,7 +38,7 @@ defmodule StarWarsAPI.DataCase do
   Sets up the sandbox based on the test tags.
   """
   def setup_sandbox(tags) do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(StarWarsAPI.Repo, shared: not tags[:async])
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(StarWars.Repo, shared: not tags[:async])
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
 

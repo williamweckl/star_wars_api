@@ -1,4 +1,4 @@
-defmodule StarWarsAPI.Entities.Movie do
+defmodule StarWars.Entities.Movie do
   @moduledoc """
   Movie entity.
 
@@ -11,13 +11,13 @@ defmodule StarWarsAPI.Entities.Movie do
   schema "movies" do
     field :title, :string
     field :release_date, :date
-    field :integration_source, StarWarsAPI.Enums.IntegrationSource
+    field :integration_source, StarWars.Enums.IntegrationSource
     field :integration_id, :string
 
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
 
-    belongs_to :director, StarWarsAPI.Entities.MovieDirector, type: :binary_id
+    belongs_to :director, StarWars.Entities.MovieDirector, type: :binary_id
   end
 
   @fields [

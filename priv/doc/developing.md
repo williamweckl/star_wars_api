@@ -33,7 +33,7 @@ make docker.code.lint
 You can also pass arguments to the linter command to check a single file or path. To do that follow the example bellow:
 
 ```
-ARGS="lib/star_wars_api.ex" make docker.code.lint
+ARGS="lib/star_wars.ex" make docker.code.lint
 ```
 
 ## Code format
@@ -61,7 +61,7 @@ make docker.app.test
 You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
 
 ```
-ARGS="test/star_wars_api_web/views/error_view_test.exs" make docker.app.test
+ARGS="test/star_wars_api/views/error_view_test.exs" make docker.app.test
 ```
 
 ### Code Coverage
@@ -77,7 +77,7 @@ make docker.app.test_with_coverage
 You can also pass arguments to the command to test a single file or path. To do that follow the example bellow:
 
 ```
-ARGS="test/star_wars_api_web/views/error_view_test.exs" make docker.app.test_with_coverage
+ARGS="test/star_wars_api/views/error_view_test.exs" make docker.app.test_with_coverage
 ```
 
 The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.

@@ -1,6 +1,6 @@
-defmodule StarWarsAPI.Entities.Terrain do
+defmodule StarWars.Entities.Climate do
   @moduledoc """
-  Terrain entity.
+  Climate entity.
 
   The entity contains the mapped fields. It represents a real business entity and must be used only by Interactors.
   """
@@ -8,9 +8,9 @@ defmodule StarWarsAPI.Entities.Terrain do
   use CleanArchitecture.Entity
 
   @primary_key {:id, :string, autogenerate: false}
-  schema "terrains" do
+  schema "climates" do
     field :name, :string
-    field :integration_source, StarWarsAPI.Enums.IntegrationSource
+    field :integration_source, StarWars.Enums.IntegrationSource
 
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
@@ -30,16 +30,16 @@ defmodule StarWarsAPI.Entities.Terrain do
     changeset(%__MODULE__{}, %{})
   end
 
-  def changeset(%__MODULE__{} = terrain) do
-    changeset(terrain, %{})
+  def changeset(%__MODULE__{} = climate) do
+    changeset(climate, %{})
   end
 
   def changeset(%{} = attrs) do
     changeset(%__MODULE__{}, attrs)
   end
 
-  def changeset(%__MODULE__{} = terrain, %{} = attrs) do
-    terrain
+  def changeset(%__MODULE__{} = climate, %{} = attrs) do
+    climate
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
     |> validate_length(:name, min: 2, max: 60)

@@ -1,11 +1,11 @@
-defmodule StarWarsAPIWeb.Router do
-  use StarWarsAPIWeb, :router
+defmodule StarWarsAPI.Router do
+  use StarWarsAPI, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", StarWarsAPIWeb do
+  scope "/api", StarWarsAPI do
     pipe_through :api
   end
 
@@ -22,7 +22,7 @@ defmodule StarWarsAPIWeb.Router do
     scope "/" do
       pipe_through [:fetch_session, :protect_from_forgery]
 
-      live_dashboard "/dashboard", metrics: StarWarsAPIWeb.Telemetry
+      live_dashboard "/dashboard", metrics: StarWarsAPI.Telemetry
     end
   end
 end

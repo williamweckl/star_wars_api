@@ -1,18 +1,18 @@
-defmodule StarWarsAPI.Support.Factory do
+defmodule StarWars.Support.Factory do
   @moduledoc """
   Factory used to create entities for tests.
   """
 
   # with Ecto
-  use ExMachina.Ecto, repo: StarWarsAPI.Repo
+  use ExMachina.Ecto, repo: StarWars.Repo
 
-  alias StarWarsAPI.Entities.Climate
-  alias StarWarsAPI.Entities.Movie
-  alias StarWarsAPI.Entities.MovieDirector
-  alias StarWarsAPI.Entities.Planet
-  alias StarWarsAPI.Entities.Terrain
+  alias StarWars.Entities.Climate
+  alias StarWars.Entities.Movie
+  alias StarWars.Entities.MovieDirector
+  alias StarWars.Entities.Planet
+  alias StarWars.Entities.Terrain
 
-  alias StarWarsAPI.Enums
+  alias StarWars.Enums
 
   def climate_factory do
     name = sequence(:name, &"Climate #{&1}")

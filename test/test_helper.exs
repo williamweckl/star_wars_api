@@ -7,4 +7,4 @@ ExUnit.configure(
 
 ExUnit.start()
 
-Ecto.Adapters.SQL.Sandbox.mode(StarWarsAPI.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(StarWars.Repo, :manual)

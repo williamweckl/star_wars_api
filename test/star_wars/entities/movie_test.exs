@@ -1,13 +1,13 @@
-defmodule StarWarsAPI.Entities.MovieTest do
-  use StarWarsAPI.DataCase
+defmodule StarWars.Entities.MovieTest do
+  use StarWars.DataCase
 
-  alias StarWarsAPI.Entities.Movie
+  alias StarWars.Entities.Movie
 
   @valid_attrs %{
     title: "A New Hope",
     release_date: ~D[2000-01-01],
     integration_source:
-      StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+      StarWars.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
     integration_id: "#{:rand.uniform(999_999_999)}",
     director_id: Ecto.UUID.generate()
   }

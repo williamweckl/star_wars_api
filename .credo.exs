@@ -211,29 +211,29 @@ end
           CredoNaming.Check.Consistency.ModuleFilename,
           excluded_paths: ["config", "mix.exs", "priv", "test/support", "test/priv"],
           valid_filename_callback: fn
-            "lib/star_wars_api_web/channels/" <> filepart, module_name, opts ->
-              valid_filename?.("lib/star_wars_api_web/" <> filepart, module_name, opts)
+            "lib/star_wars_api/channels/" <> filepart, module_name, opts ->
+              valid_filename?.("lib/star_wars_api/" <> filepart, module_name, opts)
 
-            "lib/star_wars_api_web/controllers/" <> filepart, module_name, opts ->
-              valid_filename?.("lib/star_wars_api_web/" <> filepart, module_name, opts)
+            "lib/star_wars_api/controllers/" <> filepart, module_name, opts ->
+              valid_filename?.("lib/star_wars_api/" <> filepart, module_name, opts)
 
-            "lib/star_wars_api_web/serializers/" <> filepart, module_name, opts ->
-              valid_filename?.("lib/star_wars_api_web/" <> filepart, module_name, opts)
+            "lib/star_wars_api/serializers/" <> filepart, module_name, opts ->
+              valid_filename?.("lib/star_wars_api/" <> filepart, module_name, opts)
 
-            "lib/star_wars_api_web/views/" <> filepart, module_name, opts ->
-              valid_filename?.("lib/star_wars_api_web/" <> filepart, module_name, opts)
+            "lib/star_wars_api/views/" <> filepart, module_name, opts ->
+              valid_filename?.("lib/star_wars_api/" <> filepart, module_name, opts)
 
-            "test/star_wars_api_web/channels/" <> filepart, module_name, opts ->
-              valid_filename?.("test/star_wars_api_web/" <> filepart, module_name, opts)
+            "test/star_wars_api/channels/" <> filepart, module_name, opts ->
+              valid_filename?.("test/star_wars_api/" <> filepart, module_name, opts)
 
-            "test/star_wars_api_web/controllers/" <> filepart, module_name, opts ->
-              valid_filename?.("test/star_wars_api_web/" <> filepart, module_name, opts)
+            "test/star_wars_api/controllers/" <> filepart, module_name, opts ->
+              valid_filename?.("test/star_wars_api/" <> filepart, module_name, opts)
 
-            "test/star_wars_api_web/serializers/" <> filepart, module_name, opts ->
-              valid_filename?.("test/star_wars_api_web/" <> filepart, module_name, opts)
+            "test/star_wars_api/serializers/" <> filepart, module_name, opts ->
+              valid_filename?.("test/star_wars_api/" <> filepart, module_name, opts)
 
-            "test/star_wars_api_web/views/" <> filepart, module_name, opts ->
-              valid_filename?.("test/star_wars_api_web/" <> filepart, module_name, opts)
+            "test/star_wars_api/views/" <> filepart, module_name, opts ->
+              valid_filename?.("test/star_wars_api/" <> filepart, module_name, opts)
 
             filename, module_name, opts ->
               valid_filename?.(filename, module_name, opts)

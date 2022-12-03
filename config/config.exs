@@ -7,15 +7,15 @@
 # General application configuration
 import Config
 
-config :star_wars_api,
-  namespace: StarWarsAPI,
-  ecto_repos: [StarWarsAPI.Repo],
+config :star_wars,
+  namespace: StarWars,
+  ecto_repos: [StarWars.Repo],
   generators: [binary_id: true]
 
 # Configures the endpoint
-config :star_wars_api, StarWarsAPIWeb.Endpoint,
+config :star_wars, StarWarsAPI.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: StarWarsAPIWeb.ErrorView, accepts: ~w(json), layout: false],
+  render_errors: [view: StarWarsAPI.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: StarWarsAPI.PubSub,
   live_view: [signing_salt: "GHNBnwIx"]
 

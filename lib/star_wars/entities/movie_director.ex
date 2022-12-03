@@ -1,23 +1,22 @@
-defmodule StarWarsAPI.Entities.Climate do
+defmodule StarWars.Entities.MovieDirector do
   @moduledoc """
-  Climate entity.
+  Movie Director entity.
 
   The entity contains the mapped fields. It represents a real business entity and must be used only by Interactors.
   """
 
   use CleanArchitecture.Entity
 
-  @primary_key {:id, :string, autogenerate: false}
-  schema "climates" do
+  @primary_key {:id, :binary_id, autogenerate: true}
+  schema "movie_directors" do
     field :name, :string
-    field :integration_source, StarWarsAPI.Enums.IntegrationSource
+    field :integration_source, StarWars.Enums.IntegrationSource
 
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
   end
 
   @fields [
-    :id,
     :name,
     :integration_source,
     :deleted_at
@@ -30,18 +29,18 @@ defmodule StarWarsAPI.Entities.Climate do
     changeset(%__MODULE__{}, %{})
   end
 
-  def changeset(%__MODULE__{} = climate) do
-    changeset(climate, %{})
+  def changeset(%__MODULE__{} = movie_director) do
+    changeset(movie_director, %{})
   end
 
   def changeset(%{} = attrs) do
     changeset(%__MODULE__{}, attrs)
   end
 
-  def changeset(%__MODULE__{} = climate, %{} = attrs) do
-    climate
+  def changeset(%__MODULE__{} = movie_director, %{} = attrs) do
+    movie_director
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
-    |> validate_length(:name, min: 2, max: 60)
+    |> validate_length(:name, max: 255)
   end
 end

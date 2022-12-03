@@ -1,5 +1,5 @@
-defmodule StarWarsAPIWeb.ErrorView do
-  use StarWarsAPIWeb, :view
+defmodule StarWarsAPI.ErrorView do
+  use StarWarsAPI, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
