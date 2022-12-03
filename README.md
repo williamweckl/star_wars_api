@@ -35,12 +35,13 @@ Other decisions made are specified at this README.
 
 ## Technical decisions
 
+  * [Separated entities for climates and terrains](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/separate-entities-for-climates-and-terrains.md)
   * [Entities IDs](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/ids.md)
   * [PostgreSQL enums](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/postgres-enums.md)
   * [Soft Delete](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/soft-delete.md)
   * [HTTP Client](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/http-client.md)
   * [Contracts](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/contracts.md)
-  * [Separated entities for climates and terrains](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/separate-entities-for-climates-and-terrains.md)
+  * [ErrorsHandler](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/errors-handler.md)
 
 ## Start
 
