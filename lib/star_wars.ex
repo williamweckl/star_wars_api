@@ -10,6 +10,7 @@ defmodule StarWars do
   use CleanArchitecture.BoundedContext
 
   alias StarWars.Entities.Climate
+  alias StarWars.Entities.Movie
   alias StarWars.Entities.MovieDirector
   alias StarWars.Entities.Terrain
 
@@ -76,6 +77,29 @@ defmodule StarWars do
          {:ok, %MovieDirector{} = movie_director} <-
            Interactors.MovieDirector.Upsert.call(validated_input) do
       {:ok, movie_director}
+    else
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  # Movie
+
+  @doc """
+  Creates or updates a movie director.
+
+  ## Examples
+      iex> upsert_movie(%{field: "value"})
+      {:ok, %Movie{}}
+
+      iex> upsert_movie(%{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+  """
+  def upsert_movie(%{} = input) do
+    with {:ok, validated_input} <- Contracts.Movie.Upsert.validate_input(input),
+         {:ok, %Movie{} = movie} <-
+           Interactors.Movie.Upsert.call(validated_input) do
+      {:ok, movie}
     else
       {:error, %Changeset{} = changeset} ->
         {:error, changeset}
