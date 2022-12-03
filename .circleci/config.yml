@@ -52,16 +52,16 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - v1-mix-cache-{{ .Branch }}
-            - v1-mix-cache-main
-            - v1-mix-cache
+            - v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v2-mix-cache-{{ .Branch }}
+            - v2-mix-cache-main
+            - v2-mix-cache
       - restore_cache:
           keys:
-            - v1-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - v1-build-cache-{{ .Branch }}
-            - v1-build-cache-main
-            - v1-build-cache
+            - v2-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v2-build-cache-{{ .Branch }}
+            - v2-build-cache-main
+            - v2-build-cache
 
       - run: mix local.hex --force
       - run: mix local.rebar --force
@@ -69,10 +69,10 @@ jobs:
       - run: mix compile --warnings-as-errors
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          key: v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          key: v2-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths:
             - _build
             - .elixir_ls
