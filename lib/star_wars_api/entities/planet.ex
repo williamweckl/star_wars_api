@@ -15,6 +15,21 @@ defmodule StarWarsAPI.Entities.Planet do
 
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
+
+    many_to_many :climates, StarWarsAPI.Entities.Climate,
+      join_through: "planets_climates",
+      on_delete: :delete_all,
+      unique: true
+
+    many_to_many :movies, StarWarsAPI.Entities.Movie,
+      join_through: "planets_movies",
+      on_delete: :delete_all,
+      unique: true
+
+    many_to_many :terrains, StarWarsAPI.Entities.Terrain,
+      join_through: "planets_terrains",
+      on_delete: :delete_all,
+      unique: true
   end
 
   @fields [

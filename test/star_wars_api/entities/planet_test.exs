@@ -102,5 +102,53 @@ defmodule StarWarsAPI.Entities.PlanetTest do
                |> Planet.changeset()
                |> Repo.insert()
     end
+
+    test "ables to insert related climates" do
+      climate_one = Factory.insert(:climate)
+      climate_two = Factory.insert(:climate)
+
+      assert {:ok, record} =
+        @valid_attrs
+        |> Planet.changeset()
+        |> put_assoc(:climates, [climate_one, climate_two])
+        |> Repo.insert()
+
+      assert record.climates == [climate_one, climate_two]
+
+      reloaded_record = record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:climates)
+      assert reloaded_record.climates == [climate_one, climate_two]
+    end
+
+    test "ables to insert related movies" do
+      movie_one = Factory.insert(:movie)
+      movie_two = Factory.insert(:movie)
+
+      assert {:ok, record} =
+        @valid_attrs
+        |> Planet.changeset()
+        |> put_assoc(:movies, [movie_one, movie_two])
+        |> Repo.insert()
+
+      assert record.movies == [movie_one, movie_two]
+
+      reloaded_record = record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:movies)
+      assert reloaded_record.movies == [movie_one, movie_two]
+    end
+
+    test "ables to insert related terrains" do
+      terrain_one = Factory.insert(:terrain)
+      terrain_two = Factory.insert(:terrain)
+
+      assert {:ok, record} =
+        @valid_attrs
+        |> Planet.changeset()
+        |> put_assoc(:terrains, [terrain_one, terrain_two])
+        |> Repo.insert()
+
+      assert record.terrains == [terrain_one, terrain_two]
+
+      reloaded_record = record |> StarWarsAPI.Repo.reload!() |> StarWarsAPI.Repo.preload(:terrains)
+      assert reloaded_record.terrains == [terrain_one, terrain_two]
+    end
   end
 end

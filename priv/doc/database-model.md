@@ -104,3 +104,38 @@ Having different timezones at database can become messy and the application can 
   * deleted_at
   * [integration_source, integration_id] unique for not deleted records
 
+### planets_climates
+
+| Field      | Description                         | Type              | Rules / Validations |
+|------------|-------------------------------------|-------------------|---------------------|
+| id         | The identifier of the relationship. | uuid v4           | PK                  |
+| planet_id  | The ID of the planet.               | uuid v4           | FK, Not null        |
+| climate_id | The ID of the climate.              | character varying | FK, Not null        |
+
+#### Indexes
+
+  * [planet_id, climate_id] unique
+
+### planets_movies
+
+| Field      | Description                         | Type              | Rules / Validations |
+|------------|-------------------------------------|-------------------|---------------------|
+| id         | The identifier of the relationship. | uuid v4           | PK                  |
+| planet_id  | The ID of the planet.               | uuid v4           | FK, Not null        |
+| movie_id   | The ID of the movie.                | uuid v4           | FK, Not null        |
+
+#### Indexes
+
+  * [planet_id, movie_id] unique
+
+### planets_terrains
+
+| Field      | Description                         | Type              | Rules / Validations |
+|------------|-------------------------------------|-------------------|---------------------|
+| id         | The identifier of the relationship. | uuid v4           | PK                  |
+| planet_id  | The ID of the planet.               | uuid v4           | FK, Not null        |
+| terrain_id | The ID of the terrain.              | character varying | FK, Not null        |
+
+#### Indexes
+
+  * [planet_id, terrain_id] unique
