@@ -1,5 +1,8 @@
 import Config
 
+config :star_wars,
+  integration_source: :mock
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used

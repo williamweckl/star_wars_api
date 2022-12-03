@@ -10,7 +10,8 @@ import Config
 config :star_wars,
   namespace: StarWars,
   ecto_repos: [StarWars.Repo],
-  generators: [binary_id: true]
+  generators: [binary_id: true],
+  integration_source: :star_wars_public_api
 
 # Configures the endpoint
 config :star_wars, StarWarsAPI.Endpoint,
