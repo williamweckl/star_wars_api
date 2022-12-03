@@ -9,16 +9,6 @@ defmodule StarWars.Enums.IntegrationSource do
   We can have other sources in the future like for example a manual input. In this case, the source would be manual input and the URL would be empty.
   """
 
-  @base_urls %{
-    star_wars_public_api: "https://swapi.py4e.com"
-  }
-  @endpoints %{
-    star_wars_public_api: %{
-      planet: "api/planets/:id",
-      planets: "api/planets"
-    }
-  }
-
   use EctoEnum,
     star_wars_public_api: "star_wars_public_api"
 
@@ -32,40 +22,17 @@ defmodule StarWars.Enums.IntegrationSource do
   def default, do: :star_wars_public_api
 
   @doc """
-  Returns the base URL of the integration source by its ID.
+  Returns the integration source adapter according to the informed integration source.
 
   ## Examples
-      iex> StarWars.Enums.IntegrationSource.base_url(:star_wars_public_api)
-      "https://swapi.py4e.com"
+      iex> StarWars.Enums.IntegrationSource.get_adapter(:star_wars_public_api)
+      StarWars.IntegrationSource.Adapters.StarWarsPublicAPI
+
+      iex> StarWars.Enums.IntegrationSource.get_adapter(:mock)
+      StarWars.IntegrationSource.Adapters.Mock
   """
-  def base_url(integration_source), do: @base_urls[integration_source]
+  def get_adapter(:star_wars_public_api),
+    do: StarWars.IntegrationSource.Adapters.StarWarsPublicAPI
 
-  @doc """
-  Returns the URL of the integration source planet endpoint by its ID.
-
-  ## Examples
-      iex> StarWars.Enums.IntegrationSource.planet_url(:star_wars_public_api, 1)
-      "https://swapi.py4e.com/api/planets/1"
-
-      iex> StarWars.Enums.IntegrationSource.planet_url(:star_wars_public_api, 123)
-      "https://swapi.py4e.com/api/planets/123"
-
-      iex> StarWars.Enums.IntegrationSource.planet_url(:star_wars_public_api, "xpto")
-      "https://swapi.py4e.com/api/planets/xpto"
-  """
-  def planet_url(integration_source, id) do
-    "#{base_url(integration_source)}/#{@endpoints[integration_source][:planet]}"
-    |> String.replace(":id", "#{id}")
-  end
-
-  @doc """
-  Returns the URL of the integration source planets endpoint by its ID.
-
-  ## Examples
-      iex> StarWars.Enums.IntegrationSource.planets_url(:star_wars_public_api)
-      "https://swapi.py4e.com/api/planets"
-  """
-  def planets_url(integration_source) do
-    "#{base_url(integration_source)}/#{@endpoints[integration_source][:planets]}"
-  end
+  def get_adapter(:mock), do: StarWars.IntegrationSource.Adapters.Mock
 end
