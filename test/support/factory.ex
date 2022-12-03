@@ -9,6 +9,7 @@ defmodule StarWarsAPI.Support.Factory do
   alias StarWarsAPI.Entities.Climate
   alias StarWarsAPI.Entities.MovieDirector
   alias StarWarsAPI.Entities.Movie
+  alias StarWarsAPI.Entities.Planet
   alias StarWarsAPI.Entities.Terrain
 
   def climate_factory do
@@ -52,6 +53,18 @@ defmodule StarWarsAPI.Support.Factory do
     %Movie{
       title: title,
       release_date: Date.utc_today(),
+      integration_source:
+        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+      integration_id: "#{:rand.uniform(999_999_999)}",
+      deleted_at: nil
+    }
+  end
+
+  def planet_factory do
+    name = sequence(:name, &"Planet #{&1}")
+
+    %Planet{
+      name: name,
       integration_source:
         StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       integration_id: "#{:rand.uniform(999_999_999)}",
