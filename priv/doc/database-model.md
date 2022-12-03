@@ -38,3 +38,19 @@ Having different timezones at database can become messy and the application can 
 #### Indexes
 
   * deleted_at
+
+### terrains
+
+| Field              | Description                                               | Type                       | Rules / Validations                           |
+|--------------------|-----------------------------------------------------------|----------------------------|-----------------------------------------------|
+| id                 | The identifier of the terrain.                            | character varying          | PK                                            |
+| name               | The name of the terrain.                                  | character varying          | Not null, Limit 60 characters                 |
+| integration_source | The related integration source.                           | character varying          | Not null, Valid integration source enum value |
+| inserted_at        | Timestamp of when the data was inserted.                  | timestamp without timezone | Not null                                      |
+| updated_at         | Timestamp of when the data was updated for the last time. | timestamp without timezone | Not null                                      |
+| deleted_at         | Timestamp of when the data was deleted.                   | timestamp without timezone |                                               |
+
+#### Indexes
+
+  * deleted_at
+
