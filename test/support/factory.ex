@@ -7,10 +7,12 @@ defmodule StarWarsAPI.Support.Factory do
   use ExMachina.Ecto, repo: StarWarsAPI.Repo
 
   alias StarWarsAPI.Entities.Climate
-  alias StarWarsAPI.Entities.MovieDirector
   alias StarWarsAPI.Entities.Movie
+  alias StarWarsAPI.Entities.MovieDirector
   alias StarWarsAPI.Entities.Planet
   alias StarWarsAPI.Entities.Terrain
+
+  alias StarWarsAPI.Enums
 
   def climate_factory do
     name = sequence(:name, &"Climate #{&1}")
@@ -19,7 +21,7 @@ defmodule StarWarsAPI.Support.Factory do
       id: name |> String.replace(" ", "_") |> String.downcase(),
       name: name,
       integration_source:
-        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+        Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       deleted_at: nil
     }
   end
@@ -31,7 +33,7 @@ defmodule StarWarsAPI.Support.Factory do
       id: name |> String.replace(" ", "_") |> String.downcase(),
       name: name,
       integration_source:
-        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+        Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       deleted_at: nil
     }
   end
@@ -42,7 +44,7 @@ defmodule StarWarsAPI.Support.Factory do
     %MovieDirector{
       name: name,
       integration_source:
-        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+        Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       deleted_at: nil
     }
   end
@@ -54,7 +56,7 @@ defmodule StarWarsAPI.Support.Factory do
       title: title,
       release_date: Date.utc_today(),
       integration_source:
-        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+        Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       integration_id: "#{:rand.uniform(999_999_999)}",
       director: build(:movie_director),
       deleted_at: nil
@@ -67,7 +69,7 @@ defmodule StarWarsAPI.Support.Factory do
     %Planet{
       name: name,
       integration_source:
-        StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
+        Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       integration_id: "#{:rand.uniform(999_999_999)}",
       deleted_at: nil
     }
