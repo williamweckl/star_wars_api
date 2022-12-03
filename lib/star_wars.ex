@@ -11,6 +11,7 @@ defmodule StarWars do
 
   alias StarWars.Entities.Climate
   alias StarWars.Entities.MovieDirector
+  alias StarWars.Entities.Terrain
 
   # Climate
 
@@ -29,6 +30,29 @@ defmodule StarWars do
          {:ok, %Climate{} = climate} <-
            Interactors.Climate.Upsert.call(validated_input) do
       {:ok, climate}
+    else
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  # Terrain
+
+  @doc """
+  Creates or updates a terrain.
+
+  ## Examples
+      iex> upsert_terrain(%{field: "value"})
+      {:ok, %Terrain{}}
+
+      iex> upsert_terrain(%{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+  """
+  def upsert_terrain(%{} = input) do
+    with {:ok, validated_input} <- Contracts.Terrain.Upsert.validate_input(input),
+         {:ok, %Terrain{} = terrain} <-
+           Interactors.Terrain.Upsert.call(validated_input) do
+      {:ok, terrain}
     else
       {:error, %Changeset{} = changeset} ->
         {:error, changeset}
