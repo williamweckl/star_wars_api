@@ -34,6 +34,7 @@ Other decisions made are specified at this README.
 ## Technical decisions
 
   * [Entities IDs](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/ids.md)
+  * [PostgreSQL enums](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/postgres-enums.md)
 
 ## Start
 
