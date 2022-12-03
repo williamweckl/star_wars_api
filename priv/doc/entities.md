@@ -1,8 +1,5 @@
 # Entities
 
-<!-- TODO: FILMES -->
-<!-- TODO: ID DO PLANETA NA API -->
-
 ## Climate
 
 This entity represents a climate.
