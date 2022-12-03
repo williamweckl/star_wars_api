@@ -57,6 +57,9 @@ defmodule StarWars.MixProject do
       # Enums
       {:ecto_enum, "~> 1.4"},
 
+      # Web requests
+      {:httpoison, "~> 1.8"},
+
       # Test
       {:excoveralls, "~> 0.14", only: :test, runtime: false},
       {:junit_formatter, "~> 3.3", only: [:test]},
