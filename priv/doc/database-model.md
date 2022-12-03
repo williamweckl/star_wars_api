@@ -68,6 +68,7 @@ Having different timezones at database can become messy and the application can 
 #### Indexes
 
   * deleted_at
+  * name unique for not deleted records
 
 ### movies
 

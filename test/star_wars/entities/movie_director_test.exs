@@ -66,5 +66,38 @@ defmodule StarWars.Entities.MovieDirectorTest do
       changeset = %MovieDirector{} |> MovieDirector.changeset(attrs)
       assert "should be at most 255 character(s)" in errors_on(changeset).name
     end
+
+    test "returns error when name is already taken" do
+      movie_director = Factory.insert(:movie_director)
+
+      assert {:error, changeset} =
+               @valid_attrs
+               |> Map.put(:name, movie_director.name)
+               |> MovieDirector.changeset()
+               |> Repo.insert()
+
+      assert "has already been taken" in errors_on(changeset).name
+    end
+
+    test "does not return error when inserting a non conflicted name" do
+      _movie_director = Factory.insert(:movie_director)
+      other_name = "abc"
+
+      assert {:ok, _record} =
+               @valid_attrs
+               |> Map.put(:name, other_name)
+               |> MovieDirector.changeset()
+               |> Repo.insert()
+    end
+
+    test "does not return error when name is the same as other deleted movie_director" do
+      movie_director = Factory.insert(:movie_director, deleted_at: DateTime.now!("Etc/UTC"))
+
+      assert {:ok, _record} =
+               @valid_attrs
+               |> Map.put(:name, movie_director.name)
+               |> MovieDirector.changeset()
+               |> Repo.insert()
+    end
   end
 end

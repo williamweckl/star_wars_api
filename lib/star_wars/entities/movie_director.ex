@@ -42,5 +42,6 @@ defmodule StarWars.Entities.MovieDirector do
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 255)
+    |> unique_constraint(:name, name: "unique_movie_director_name")
   end
 end
