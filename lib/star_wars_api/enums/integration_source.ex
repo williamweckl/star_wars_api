@@ -54,7 +54,8 @@ defmodule StarWarsAPI.Enums.IntegrationSource do
       "https://swapi.py4e.com/api/planets/xpto"
   """
   def planet_url(integration_source, id) do
-    "#{base_url(integration_source)}/#{@endpoints[integration_source][:planet]}" |> String.replace(":id", "#{id}")
+    "#{base_url(integration_source)}/#{@endpoints[integration_source][:planet]}"
+    |> String.replace(":id", "#{id}")
   end
 
   @doc """
