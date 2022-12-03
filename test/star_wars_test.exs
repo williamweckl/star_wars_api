@@ -9,6 +9,7 @@ defmodule StarWarsTest do
   alias StarWars.Entities.Climate
   alias StarWars.Entities.Movie
   alias StarWars.Entities.MovieDirector
+  alias StarWars.Entities.Planet
   alias StarWars.Entities.Terrain
 
   # Climate
@@ -211,6 +212,57 @@ defmodule StarWarsTest do
         end
 
         assert_called_exactly(Interactors.Movie.Upsert.call(input), 1)
+      end
+    end
+  end
+
+  # Planet
+
+  describe "upsert_planet/1" do
+    test "calls right interactor and handles :ok output" do
+      with_mocks([
+        {Interactors.Planet.Upsert, [], [call: fn _input -> {:ok, %Planet{}} end]},
+        {Contracts.Planet.Upsert, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:ok, %Planet{}} == StarWars.upsert_planet(input)
+
+        assert_called_exactly(Interactors.Planet.Upsert.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles :error output" do
+      with_mocks([
+        {Interactors.Planet.Upsert, [], [call: fn _input -> {:error, %Changeset{}} end]},
+        {Contracts.Planet.Upsert, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:error, %Changeset{}} == StarWars.upsert_planet(input)
+
+        assert_called_exactly(Interactors.Planet.Upsert.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and raises when output is not handled" do
+      with_mocks([
+        {Interactors.Planet.Upsert, [], [call: fn _input -> %Planet{} end]},
+        {Contracts.Planet.Upsert, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert_raise WithClauseError, fn ->
+          StarWars.upsert_planet(input)
+        end
+
+        assert_called_exactly(Interactors.Planet.Upsert.call(input), 1)
       end
     end
   end

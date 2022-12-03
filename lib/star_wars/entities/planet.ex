@@ -19,16 +19,19 @@ defmodule StarWars.Entities.Planet do
     many_to_many :climates, StarWars.Entities.Climate,
       join_through: "planets_climates",
       on_delete: :delete_all,
+      on_replace: :delete,
       unique: true
 
     many_to_many :movies, StarWars.Entities.Movie,
       join_through: "planets_movies",
       on_delete: :delete_all,
+      on_replace: :delete,
       unique: true
 
     many_to_many :terrains, StarWars.Entities.Terrain,
       join_through: "planets_terrains",
       on_delete: :delete_all,
+      on_replace: :delete,
       unique: true
   end
 

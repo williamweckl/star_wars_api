@@ -12,6 +12,7 @@ defmodule StarWars do
   alias StarWars.Entities.Climate
   alias StarWars.Entities.Movie
   alias StarWars.Entities.MovieDirector
+  alias StarWars.Entities.Planet
   alias StarWars.Entities.Terrain
 
   # Climate
@@ -100,6 +101,29 @@ defmodule StarWars do
          {:ok, %Movie{} = movie} <-
            Interactors.Movie.Upsert.call(validated_input) do
       {:ok, movie}
+    else
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  # Planet
+
+  @doc """
+  Creates or updates a planet.
+
+  ## Examples
+      iex> upsert_planet(%{field: "value"})
+      {:ok, %Planet{}}
+
+      iex> upsert_planet(%{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+  """
+  def upsert_planet(%{} = input) do
+    with {:ok, validated_input} <- Contracts.Planet.Upsert.validate_input(input),
+         {:ok, %Planet{} = planet} <-
+           Interactors.Planet.Upsert.call(validated_input) do
+      {:ok, planet}
     else
       {:error, %Changeset{} = changeset} ->
         {:error, changeset}
