@@ -46,5 +46,6 @@ defmodule StarWarsAPI.Entities.Movie do
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)
     |> validate_length(:title, max: 255)
+    |> unique_constraint(:integration_id, name: "unique_movie_integration_id")
   end
 end

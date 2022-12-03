@@ -73,5 +73,38 @@ defmodule StarWarsAPI.Entities.MovieTest do
       changeset = %Movie{} |> Movie.changeset(attrs)
       assert "should be at most 255 character(s)" in errors_on(changeset).title
     end
+
+    test "returns error when integration_id is already taken" do
+      movie = Factory.insert(:movie)
+
+      assert {:error, changeset} =
+               @valid_attrs
+               |> Map.put(:integration_id, movie.integration_id)
+               |> Movie.changeset()
+               |> Repo.insert()
+
+      assert "has already been taken" in errors_on(changeset).integration_id
+    end
+
+    test "does not return error when inserting a non conflicted integration_id" do
+      _movie = Factory.insert(:movie)
+      other_integration_id = "abc"
+
+      assert {:ok, _record} =
+               @valid_attrs
+               |> Map.put(:integration_id, other_integration_id)
+               |> Movie.changeset()
+               |> Repo.insert()
+    end
+
+    test "does not return error when integration_id is the same as other deleted movie" do
+      movie = Factory.insert(:movie, deleted_at: DateTime.now!("Etc/UTC"))
+
+      assert {:ok, _record} =
+               @valid_attrs
+               |> Map.put(:integration_id, movie.integration_id)
+               |> Movie.changeset()
+               |> Repo.insert()
+    end
   end
 end
