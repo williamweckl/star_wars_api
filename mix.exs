@@ -51,6 +51,9 @@ defmodule StarWarsAPI.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
 
+      # Clean Architecture
+      {:clean_architecture, "~> 0.1"},
+
       # Enums
       {:ecto_enum, "~> 1.4"},
 

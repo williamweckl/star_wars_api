@@ -7,7 +7,7 @@ This entity represents a climate.
 | Attribute          | Description                                                                                                       | Type   | Rules / Validations                  |
 |--------------------|-------------------------------------------------------------------------------------------------------------------|--------|--------------------------------------|
 | ID                 | The identifier of the climate.                                                                                    | string | Reference key (PK), Required, Unique |
-| Name               | The name of the climate.                                                                                          | string | Required, Max 60 characters          |
+| Name               | The name of the climate.                                                                                          | string | Required, Min 3 characters, Max 60 characters          |
 | Integration Source | The related integration source. When the integration process runs, it will register the integration source used. | string | Required                             |                           |
 
 ## Terrain

@@ -26,6 +26,8 @@ defmodule StarWarsAPIWeb.ConnCase do
 
       alias StarWarsAPIWeb.Router.Helpers, as: Routes
 
+      alias StarWarsAPI.Support.Factory
+
       # The default endpoint for testing
       @endpoint StarWarsAPIWeb.Endpoint
     end

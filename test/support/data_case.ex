@@ -20,6 +20,8 @@ defmodule StarWarsAPI.DataCase do
     quote do
       alias StarWarsAPI.Repo
 
+      alias StarWarsAPI.Support.Factory
+
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
