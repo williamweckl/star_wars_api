@@ -1,5 +1,8 @@
 # Entities
 
+<!-- TODO: FILMES -->
+<!-- TODO: ID DO PLANETA NA API -->
+
 ## Climate
 
 This entity represents a climate.
@@ -17,7 +20,7 @@ This entity represents a terrain.
 | Attribute          | Description                                                                                                       | Type   | Rules / Validations                  |
 |--------------------|-------------------------------------------------------------------------------------------------------------------|--------|--------------------------------------|
 | ID                 | The identifier of the terrain.                                                                                    | string | Reference key (PK), Required, Unique |
-| Name               | The name of the terrain.                                                                                          | string | Required, Max 60 characters          |
+| Name               | The name of the terrain.                                                                                          | string | Required, Min 3 characters, Max 60 characters          |
 | Integration Source | The related integration source. When the integration process runs, it will register the integration source used. | string | Required                             |                           |
 
 ## Planet
