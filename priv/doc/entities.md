@@ -38,6 +38,7 @@ This entity represents a Star Wars movie.
 |--------------------|-------------------------------------------------------------------------------------------------------------------|-------------------------|--------------------------------------|
 | ID                 | The identifier of the movie.                                                                                      | automatically generated | Reference key (PK), Required, Unique |
 | Name               | The name of the movie.                                                                                            | string                  | Required, Max 255 characters         |
+| Release date       | The date that the movie was released.                                                                             | date                    | Required                             |
 | Integration Source | The integration source related.  When the integration process runs, it will register the integration source used. | string                  | Required                             |
 | Integration ID     | The ID at the integration source. For example: the ID at the public star wars API.                                | string                  |                                      |
 
