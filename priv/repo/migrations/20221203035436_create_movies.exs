@@ -5,7 +5,7 @@ defmodule StarWarsAPI.Repo.Migrations.CreateMovies do
     create table(:movies, primary_key: false) do
       add :id, :uuid, primary_key: true, default: fragment("uuid_generate_v4()")
 
-      add :name, :string, null: false, size: 255
+      add :title, :string, null: false, size: 255
       add :release_date, :date, null: false
 
       add :integration_source, :integration_source, null: false
