@@ -32,6 +32,7 @@ Other decisions made are specified at this README.
   * [Project Architecture](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/project-architecture.md)
   * [Business Entities](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/entities.md)
   * [Database Model](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/database-model.md)
+  * [Endpoints documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0)
 
 ## Technical decisions
 
