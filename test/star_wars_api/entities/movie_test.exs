@@ -8,7 +8,8 @@ defmodule StarWarsAPI.Entities.MovieTest do
     release_date: ~D[2000-01-01],
     integration_source:
       StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
-    integration_id: "#{:rand.uniform(999_999_999)}"
+    integration_id: "#{:rand.uniform(999_999_999)}",
+    director_id: Ecto.UUID.generate()
   }
 
   describe "changeset" do
@@ -38,7 +39,8 @@ defmodule StarWarsAPI.Entities.MovieTest do
       assert changeset.errors == [
                title: {"can't be blank", [validation: :required]},
                release_date: {"can't be blank", [validation: :required]},
-               integration_source: {"can't be blank", [validation: :required]}
+               integration_source: {"can't be blank", [validation: :required]},
+               director_id: {"can't be blank", [validation: :required]}
              ]
     end
 
@@ -57,7 +59,8 @@ defmodule StarWarsAPI.Entities.MovieTest do
                title: @valid_attrs.title,
                release_date: @valid_attrs.release_date,
                integration_source: @valid_attrs.integration_source,
-               integration_id: @valid_attrs.integration_id
+               integration_id: @valid_attrs.integration_id,
+               director_id: @valid_attrs.director_id
              }
     end
 
@@ -79,6 +82,7 @@ defmodule StarWarsAPI.Entities.MovieTest do
 
       assert {:error, changeset} =
                @valid_attrs
+               |> Map.put(:director_id, movie.director_id)
                |> Map.put(:integration_id, movie.integration_id)
                |> Movie.changeset()
                |> Repo.insert()
@@ -87,11 +91,12 @@ defmodule StarWarsAPI.Entities.MovieTest do
     end
 
     test "does not return error when inserting a non conflicted integration_id" do
-      _movie = Factory.insert(:movie)
+      movie = Factory.insert(:movie)
       other_integration_id = "abc"
 
       assert {:ok, _record} =
                @valid_attrs
+               |> Map.put(:director_id, movie.director_id)
                |> Map.put(:integration_id, other_integration_id)
                |> Movie.changeset()
                |> Repo.insert()
@@ -102,6 +107,7 @@ defmodule StarWarsAPI.Entities.MovieTest do
 
       assert {:ok, _record} =
                @valid_attrs
+               |> Map.put(:director_id, movie.director_id)
                |> Map.put(:integration_id, movie.integration_id)
                |> Movie.changeset()
                |> Repo.insert()

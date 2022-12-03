@@ -16,6 +16,8 @@ defmodule StarWarsAPI.Entities.Movie do
 
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
+
+    belongs_to :director, StarWarsAPI.Entities.MovieDirector, type: :binary_id
   end
 
   @fields [
@@ -23,6 +25,7 @@ defmodule StarWarsAPI.Entities.Movie do
     :release_date,
     :integration_source,
     :integration_id,
+    :director_id,
     :deleted_at
   ]
 

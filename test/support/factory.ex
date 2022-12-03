@@ -56,6 +56,7 @@ defmodule StarWarsAPI.Support.Factory do
       integration_source:
         StarWarsAPI.Enums.IntegrationSource.__enum_map__() |> Keyword.keys() |> Enum.random(),
       integration_id: "#{:rand.uniform(999_999_999)}",
+      director: build(:movie_director),
       deleted_at: nil
     }
   end
