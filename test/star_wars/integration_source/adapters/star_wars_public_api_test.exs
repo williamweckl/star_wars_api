@@ -77,7 +77,9 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPITest do
           response
         end
       ) do
-        assert {:error, :invalid_response} == StarWarsPublicAPI.get_planet("123")
+        assert capture_log(fn ->
+                 assert {:error, :invalid_response} == StarWarsPublicAPI.get_planet("123")
+               end) =~ "Failed to decode json response. #{inspect("not json")}"
 
         assert_called_exactly(
           HTTPClient.get(StarWarsPublicAPI.planet_url("123"), %{format: "json"}),
@@ -287,7 +289,9 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPITest do
           end
         end
       ) do
-        assert {:error, :invalid_response} == StarWarsPublicAPI.get_planet("1")
+        assert capture_log(fn ->
+                 assert {:error, :invalid_response} == StarWarsPublicAPI.get_planet("1")
+               end) =~ "Failed to decode json response. #{inspect("not json")}"
 
         assert_called_exactly(
           HTTPClient.get(StarWarsPublicAPI.planet_url("1"), %{format: "json"}),
@@ -572,7 +576,7 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPITest do
       end
     end
 
-    test "returns error when movie request returns ok but with content not json" do
+    test "returns error and logs when movie request returns ok but with content not json" do
       response = {:ok, %HTTPClientResponse{status_code: 200, body: "not json", headers: []}}
 
       with_mock(
@@ -581,7 +585,9 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPITest do
           response
         end
       ) do
-        assert {:error, :invalid_response} == StarWarsPublicAPI.get_movie("123")
+        assert capture_log(fn ->
+                 assert {:error, :invalid_response} == StarWarsPublicAPI.get_movie("123")
+               end) =~ "Failed to decode json response. #{inspect("not json")}"
 
         assert_called_exactly(
           HTTPClient.get(StarWarsPublicAPI.movie_url("123"), %{format: "json"}),

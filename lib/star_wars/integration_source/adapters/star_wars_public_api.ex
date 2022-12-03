@@ -8,6 +8,8 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
   alias StarWars.HTTPClient
   alias StarWars.HTTPClientResponse
 
+  alias StarWars.ErrorsHandler
+
   alias StarWars.IntegrationSource.ClimateResponse
   alias StarWars.IntegrationSource.MovieDirectorResponse
   alias StarWars.IntegrationSource.MovieResponse
@@ -121,8 +123,17 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
     case HTTPClient.get(url, %{format: "json"}) do
       {:ok, %HTTPClientResponse{body: body}} ->
         case Jason.decode(body) do
-          {:ok, json_body} -> parse_planet_response(json_body)
-          _ -> {:error, :invalid_response}
+          {:ok, json_body} ->
+            Logger.log(:info, "Get planet request was successful. #{inspect(json_body)}",
+              module: __MODULE__,
+              function_name: :get_planet
+            )
+
+            parse_planet_response(json_body)
+
+          _ ->
+            report_json_decode_error(:get_planet, body)
+            {:error, :invalid_response}
         end
 
       {:error, error} ->
@@ -166,8 +177,17 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
     case HTTPClient.get(url, %{format: "json"}) do
       {:ok, %HTTPClientResponse{body: body}} ->
         case Jason.decode(body) do
-          {:ok, json_body} -> parse_movie_response(json_body)
-          _ -> {:error, :invalid_response}
+          {:ok, json_body} ->
+            Logger.log(:info, "Get movie request was successful. #{inspect(json_body)}",
+              module: __MODULE__,
+              function_name: :get_movie
+            )
+
+            parse_movie_response(json_body)
+
+          _ ->
+            report_json_decode_error(:get_movie, body)
+            {:error, :invalid_response}
         end
 
       {:error, error} ->
@@ -220,12 +240,7 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
   end
 
   defp parse_planet_response(response) do
-    Logger.error(
-      "[Adapters.StarWarsPublicAPI.parse_planet_response] Looks like the API response has been changed and the contract was broken!"
-    )
-
-    Logger.error(inspect(response))
-
+    report_parse_error(:parse_planet_response, response)
     {:error, :api_response_changed}
   end
 
@@ -282,21 +297,12 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
     {:ok, movie_response}
   rescue
     ArgumentError ->
-      Logger.error(
-        "[Adapters.StarWarsPublicAPI.parse_movie_response] Looks like the API response has been changed and the contract was broken!"
-      )
-
-      Logger.error(inspect(response))
-
+      report_parse_error(:parse_movie_response, response)
       {:error, :api_response_changed}
   end
 
   defp parse_movie_response(response) do
-    Logger.error(
-      "[Adapters.StarWarsPublicAPI.parse_movie_response] Looks like the API response has been changed and the contract was broken!"
-    )
-
-    Logger.error(inspect(response))
+    report_parse_error(:parse_movie_response, response)
 
     {:error, :api_response_changed}
   end
@@ -314,5 +320,27 @@ defmodule StarWars.IntegrationSource.Adapters.StarWarsPublicAPI do
     url
     |> String.replace("#{base_url()}/api/#{endpoint_namespace}/", "")
     |> String.replace("/", "")
+  end
+
+  defp report_json_decode_error(function_name, body) do
+    {:current_stacktrace, stacktrace} = Process.info(self(), :current_stacktrace)
+
+    ErrorsHandler.report_error(
+      __MODULE__,
+      function_name,
+      "Failed to decode json response. #{inspect(body)}",
+      stacktrace
+    )
+  end
+
+  defp report_parse_error(function_name, response) do
+    {:current_stacktrace, stacktrace} = Process.info(self(), :current_stacktrace)
+
+    ErrorsHandler.report_error(
+      __MODULE__,
+      function_name,
+      "Looks like the API response has been changed and the contract was broken! #{inspect(response)}",
+      stacktrace
+    )
   end
 end
