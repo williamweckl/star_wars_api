@@ -5,6 +5,19 @@ defmodule StarWars.HTTPClient do
 
   alias StarWars.HTTPClientResponse
 
+  @doc """
+  Triggers a get request to the URL with the params and headers informed.
+
+  ## Examples
+      iex> StarWars.HTTPClient.get("https://swapi.py4e.com/api/planets/1/")
+      {:ok, %HTTPClientResponse{status_code: 200, body: "", headers: []}}
+
+      iex> StarWars.HTTPClient.get("https://swapi.py4e.com/api/planets/1/", %{format: "json"})
+      {:ok, %HTTPClientResponse{status_code: 200, body: "", headers: []}}
+
+      iex> StarWars.HTTPClient.get("https://swapi.py4e.com/api/planets/1/", %{format: "json"}, [{"Accept-Language", "en-US"}])
+      {:ok, %HTTPClientResponse{status_code: 200, body: "", headers: []}}
+  """
   def get("" <> url, %{} = params \\ %{}, headers \\ []) when is_list(headers) do
     query_string = URI.encode_query(params)
 
