@@ -9,7 +9,31 @@ defmodule StarWars do
 
   use CleanArchitecture.BoundedContext
 
+  alias StarWars.Entities.Climate
   alias StarWars.Entities.MovieDirector
+
+  # Climate
+
+  @doc """
+  Creates or updates a climate.
+
+  ## Examples
+      iex> upsert_climate(%{field: "value"})
+      {:ok, %Climate{}}
+
+      iex> upsert_climate(%{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+  """
+  def upsert_climate(%{} = input) do
+    with {:ok, validated_input} <- Contracts.Climate.Upsert.validate_input(input),
+         {:ok, %Climate{} = climate} <-
+           Interactors.Climate.Upsert.call(validated_input) do
+      {:ok, climate}
+    else
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
 
   # Movie Director
 
