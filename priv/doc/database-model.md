@@ -86,3 +86,21 @@ Having different timezones at database can become messy and the application can 
 
   * deleted_at
   * [integration_source, integration_id] unique for not deleted records
+
+### planets
+
+| Field              | Description                                               | Type                       | Rules / Validations                           |
+|--------------------|-----------------------------------------------------------|----------------------------|-----------------------------------------------|
+| id                 | The identifier of the planet.                             | uuid v4                    | PK                                            |
+| name               | The name of the planet.                                   | character varying          | Not null, Limit 60 characters                |
+| integration_source | The related integration source.                           | character varying          | Not null, Valid integration source enum value |
+| integration_id     | The ID at the integration source.                         | character varying          |                                               |
+| inserted_at        | Timestamp of when the data was inserted.                  | timestamp without timezone | Not null                                      |
+| updated_at         | Timestamp of when the data was updated for the last time. | timestamp without timezone | Not null                                      |
+| deleted_at         | Timestamp of when the data was deleted.                   | timestamp without timezone |                                               |
+
+#### Indexes
+
+  * deleted_at
+  * [integration_source, integration_id] unique for not deleted records
+

@@ -4,11 +4,11 @@ One of the requirements of the challenge is to a planet be able to being deleted
 
 Deleting things from the database is always complicated because the data just disappear making it hard to understand what happened in the case of a problem that needs to be investigated.
 
-The soft delete approach also allows a record to be restored in case of miss deleted.
-
 For these reasons, I decided to use a soft delete approach.
 
 All the entities have a field called `deleted_at` that is a datetime that is only filled when the record is deleted. If this field is filled, the record is not returned by the endpoints or queries.
+
+This approach also allows a record to be restored in case of miss deleted.
 
 ## Trade off
 
