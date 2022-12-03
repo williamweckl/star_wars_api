@@ -42,6 +42,7 @@ Other decisions made are specified at this README.
   * [HTTP Client](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/http-client.md)
   * [Contracts](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/contracts.md)
   * [ErrorsHandler](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/errors-handler.md)
+  * [Integration Source Adapters](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/integration-source-adapters.md)
 
 ## Start
 
