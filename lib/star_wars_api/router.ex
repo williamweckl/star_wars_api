@@ -5,8 +5,11 @@ defmodule StarWarsAPI.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", StarWarsAPI do
+  scope "/", StarWarsAPI do
     pipe_through :api
+
+    get "/", HealthCheckController, :index
+    get "/v1", HealthCheckController, :index
   end
 
   # Enables LiveDashboard only for development
