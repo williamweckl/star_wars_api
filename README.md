@@ -30,6 +30,7 @@ Other decisions made are specified at this README.
 
   * [Basic HTTP Authentication for delete endpoint](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md).
   * [Soft Delete](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/soft-delete.md).
+  * Movies list endpoint.
   * Get a movie by it's ID endpoint.
 
 ## Documentation and guides
@@ -131,6 +132,24 @@ curl --header "Content-Type: application/json" --header "Authorization: Basic YW
 ```
 
 Don't forget to change the `<planet_id>` above to an existent planet id.
+
+### get /v1/movies
+
+List movies.
+
+[Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/movie/get_v1_movies)
+
+You can test the endpoint by running the below curl command:
+
+```bash
+curl --header "Content-Type: application/json" http://localhost:4000/v1/movies
+```
+
+You can filter by title by running the below curl command:
+
+```bash
+curl --header "Content-Type: application/json" http://localhost:4000/v1/movies?title=return
+```
 
 ### get /v1/movies/:movie_id
 

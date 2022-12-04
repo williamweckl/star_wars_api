@@ -1,6 +1,7 @@
 defmodule StarWarsAPI.V1.MovieControllerTest do
   use StarWarsAPI.ConnCase
 
+  alias CleanArchitecture.Pagination
   alias StarWarsAPI.V1.MovieSerializer
 
   alias StarWars.Repo
@@ -8,6 +9,119 @@ defmodule StarWarsAPI.V1.MovieControllerTest do
   defp movie_fixture(attrs \\ %{}) do
     Factory.insert(:movie, attrs)
     |> Repo.preload([:director])
+  end
+
+  describe "index" do
+    test "returns 200 with empty list when does not have movies created", %{conn: conn} do
+      conn = get(conn, Routes.v1_movie_path(conn, :index))
+      body = response(conn, 200)
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
+      expected_body =
+        %Pagination{entries: [], page_number: 1, page_size: 10, total_entries: 0, total_pages: 0}
+        |> MovieSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
+
+    test "returns 200 with movies list", %{conn: conn} do
+      one = movie_fixture(%{title: "A"})
+      two = movie_fixture(%{title: "B"})
+
+      conn = get(conn, Routes.v1_movie_path(conn, :index))
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
+      body = response(conn, 200)
+
+      expected_body =
+        %Pagination{
+          entries: [two, one],
+          page_number: 1,
+          page_size: 10,
+          total_entries: 2,
+          total_pages: 1
+        }
+        |> MovieSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
+
+    test "excludes deleted records from list", %{conn: conn} do
+      one = movie_fixture(%{title: "A"})
+      _deleted = movie_fixture(%{title: "B", deleted_at: DateTime.now!("Etc/UTC")})
+      two = movie_fixture(%{title: "B"})
+
+      conn = get(conn, Routes.v1_movie_path(conn, :index))
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
+      body = response(conn, 200)
+
+      expected_body =
+        %Pagination{
+          entries: [two, one],
+          page_number: 1,
+          page_size: 10,
+          total_entries: 2,
+          total_pages: 1
+        }
+        |> MovieSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
+
+    test "returns 200 with paginated movies list", %{conn: conn} do
+      one = movie_fixture(%{title: "A"})
+      _two = movie_fixture(%{title: "B"})
+
+      conn = get conn, Routes.v1_movie_path(conn, :index), %{page: 2, page_size: 1}
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
+      body = response(conn, 200)
+
+      expected_body =
+        %Pagination{
+          entries: [one],
+          page_number: 2,
+          page_size: 1,
+          total_entries: 2,
+          total_pages: 2
+        }
+        |> MovieSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
+
+    test "returns 200 with filtered movies list by title", %{conn: conn} do
+      one = movie_fixture(%{title: "A"})
+      _two = movie_fixture(%{title: "B"})
+
+      conn = get conn, Routes.v1_movie_path(conn, :index), %{title: "A"}
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
+      body = response(conn, 200)
+
+      expected_body =
+        %Pagination{
+          entries: [one],
+          page_number: 1,
+          page_size: 10,
+          total_entries: 1,
+          total_pages: 1
+        }
+        |> MovieSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
   end
 
   describe "show" do
