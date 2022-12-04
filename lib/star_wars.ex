@@ -87,6 +87,31 @@ defmodule StarWars do
   # Movie
 
   @doc """
+  Returns the list of movies.
+
+  ## Examples
+      iex> list_movies()
+      %Pagination{
+        entries: [], page_number: 1, page_size: 10, total_entries: 0, total_pages: 0
+      }
+
+      iex> list_movies(%{page: 2, page_size: 4})
+      %Pagination{
+        entries: [%Movie{}, ...], page_number: 2, page_size: 4, total_entries: 8, total_pages: 2
+      }
+  """
+  def list_movies(input \\ %{}) do
+    case Contracts.Movie.List.validate_input(input) do
+      {:ok, validated_input} ->
+        %Pagination{entries: _, page_number: _, page_size: _, total_entries: _, total_pages: _} =
+          Interactors.Movie.List.call(validated_input)
+
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  @doc """
   Gets a movie by id.
   Raises `Ecto.NoResultError` if the Movie does not exist.
 
