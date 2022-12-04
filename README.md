@@ -141,3 +141,16 @@ For development environment, the log format was opted to be something more reada
 ```
 
 Production log format configuration is very similar with the change that the timestamp contains also the date. The decision was to keep the production configuration as the default for phoenix applications since there is no tool to extract this logs yet. Most of the tools can handle this default format and some improvements can be made in the future.
+
+## Contributing
+
+We encourage you to contribute to Star Wars API! Just submit a PR that we will be happy to review.
+
+Wanna contribute and don't know where to start? There are some cool features in my mind:
+
+- Climates, Terrains and Movie Directors endpoints
+- Able to create and update records without loading it from the Star Wars public API
+- Task to load all planets from Star Wars public API
+- Search planets by movie, climate, terrain and movie director
+
+If you liked those ideas or have any other feel free to open a feature request issue or a PR. :stuck_out_tongue:
