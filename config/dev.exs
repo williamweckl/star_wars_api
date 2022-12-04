@@ -24,7 +24,8 @@ config :star_wars, StarWarsAPI.Endpoint,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "V6CiyOMb+2AVeuOLvSj0AydJ3JNhDnN0GHMWXHC82zFlkV6iaGJMmuXb3DlDBqnw",
-  watchers: []
+  watchers: [],
+  admin_password: "admin"
 
 # ## SSL Support
 #

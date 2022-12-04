@@ -24,4 +24,15 @@ defmodule StarWarsAPI.V1.PlanetController do
       |> json(response_body)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    attrs = %{
+      id: id,
+      deleted_at: DateTime.now!("Etc/UTC")
+    }
+
+    with {:ok, %Planet{}} <- StarWars.delete_planet(attrs) do
+      send_resp(conn, 204, "")
+    end
+  end
 end

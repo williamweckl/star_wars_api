@@ -21,7 +21,8 @@ config :star_wars, StarWars.Repo,
 config :star_wars, StarWarsAPI.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "hPMccC5nxUCzbAg+PEEP0WRl1X5kTpjCak0sLGlFEauQoBeEcZE5gCsjrvVkLXz6",
-  server: false
+  server: false,
+  admin_password: "admin"
 
 # Print only warnings and errors during test
 config :logger, level: :warn

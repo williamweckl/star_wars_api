@@ -5,6 +5,10 @@ defmodule StarWarsAPI.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admin do
+    plug :admin_auth
+  end
+
   scope "/", StarWarsAPI do
     pipe_through :api
 
@@ -16,6 +20,42 @@ defmodule StarWarsAPI.Router do
     pipe_through :api
 
     resources "/planets", PlanetController, only: [:index, :show], as: :v1_planet
+  end
+
+  scope "/v1", StarWarsAPI.V1 do
+    pipe_through :api
+    pipe_through :admin
+
+    resources "/planets", PlanetController, only: [:delete], as: :v1_planet
+  end
+
+  defp admin_auth(conn, _opts) do
+    required_password =
+      Application.get_env(:star_wars, StarWarsAPI.Endpoint)[
+        :admin_password
+      ]
+
+    case Plug.BasicAuth.parse_basic_auth(conn) do
+      {"admin", input_password} ->
+        if input_password == required_password do
+          conn
+        else
+          conn
+          |> Plug.BasicAuth.request_basic_auth()
+          |> put_status(401)
+          |> put_view(StarWarsAPI.ErrorView)
+          |> render("401.json")
+          |> halt()
+        end
+
+      _ ->
+        conn
+        |> Plug.BasicAuth.request_basic_auth()
+        |> put_status(401)
+        |> put_view(StarWarsAPI.ErrorView)
+        |> render("401.json")
+        |> halt()
+    end
   end
 
   # coveralls-ignore-start

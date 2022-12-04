@@ -48,6 +48,12 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  admin_password =
+    System.get_env("ADMIN_PASSWORD") ||
+      raise """
+      environment variable ADMIN_PASSWORD is missing.
+      """
+
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
@@ -61,5 +67,6 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    admin_password: admin_password
 end

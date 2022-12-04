@@ -6,6 +6,8 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
   alias StarWars.Repo
 
+  @admin_password Application.compile_env(:star_wars, StarWarsAPI.Endpoint)[:admin_password]
+
   defp planet_fixture(attrs \\ %{}) do
     Factory.insert(:planet, attrs)
     |> Repo.preload([:climates, :terrains])
@@ -158,6 +160,75 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
       json_body = json_response(conn, 422)
       assert json_body == %{"errors" => %{"id" => ["is invalid"]}}
+    end
+  end
+
+  describe "delete" do
+    setup %{conn: conn} do
+      auth = "Basic " <> Base.encode64("admin:#{@admin_password}")
+      conn = put_req_header(conn, "authorization", auth)
+
+      {:ok, %{conn: conn}}
+    end
+
+    test "returns 204 without content and deletes the planet", %{conn: conn} do
+      planet = planet_fixture()
+
+      conn = delete(conn, Routes.v1_planet_path(conn, :delete, planet.id))
+
+      body = response(conn, 204)
+      assert body == ""
+
+      reloaded_planet = Repo.reload!(planet)
+
+      current_timestamp = DateTime.now!("Etc/UTC")
+
+      # Expect deleted_at to be the current timestamp
+      # 10 seconds was setted as a threshold
+      # because of the difference between the request execution and the test assertion
+
+      # Usually, without any delays, this difference should be in mili or micro seconds
+      assert DateTime.diff(reloaded_planet.deleted_at, current_timestamp) < 10
+    end
+
+    test "returns 404 status error when planet id does not exist", %{conn: conn} do
+      {_status, _headers, body} =
+        assert_error_sent :not_found, fn ->
+          delete(conn, Routes.v1_planet_path(conn, :delete, Ecto.UUID.generate()))
+        end
+
+      json_body = Phoenix.json_library().decode!(body)
+      assert json_body["errors"]["detail"] == "Not Found"
+    end
+
+    test "returns 422 status error when planet id is invalid", %{conn: conn} do
+      conn = delete(conn, Routes.v1_planet_path(conn, :delete, "invalid"))
+
+      json_body = json_response(conn, 422)
+      assert json_body == %{"errors" => %{"id" => ["is invalid"]}}
+    end
+  end
+
+  describe "not authenticated" do
+    test "delete route returns 401", %{conn: conn} do
+      conn = delete(conn, Routes.v1_planet_path(conn, :delete, Ecto.UUID.generate()))
+
+      assert json_response(conn, 401)["errors"] == %{"detail" => "Unauthorized"}
+    end
+  end
+
+  describe "authenticated with wrong credentials" do
+    setup %{conn: conn} do
+      auth = "Basic " <> Base.encode64("admin:invalid_password")
+      conn = put_req_header(conn, "authorization", auth)
+
+      {:ok, %{conn: conn}}
+    end
+
+    test "delete route returns 401", %{conn: conn} do
+      conn = delete(conn, Routes.v1_planet_path(conn, :delete, Ecto.UUID.generate()))
+
+      assert json_response(conn, 401)["errors"] == %{"detail" => "Unauthorized"}
     end
   end
 end
