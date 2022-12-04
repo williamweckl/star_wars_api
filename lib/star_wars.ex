@@ -212,4 +212,25 @@ defmodule StarWars do
         {:error, error}
     end
   end
+
+  @doc """
+  Deletes a planet by filling deleted_at field.
+
+  ## Examples
+      iex> delete_planet(%{field: "value"})
+      {:ok, %Planet{}}
+
+      iex> delete_planet(%{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+  """
+  def delete_planet(%{} = input) do
+    with {:ok, validated_input} <- Contracts.Planet.Delete.validate_input(input),
+         {:ok, %Planet{} = planet} <-
+           Interactors.Planet.Delete.call(validated_input) do
+      {:ok, planet}
+    else
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
 end

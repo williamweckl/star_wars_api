@@ -464,4 +464,53 @@ defmodule StarWarsTest do
       end
     end
   end
+
+  describe "delete_planet/1" do
+    test "calls right interactor and handles :ok output" do
+      with_mocks([
+        {Interactors.Planet.Delete, [], [call: fn _input -> {:ok, %Planet{}} end]},
+        {Contracts.Planet.Delete, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:ok, %Planet{}} == StarWars.delete_planet(input)
+
+        assert_called_exactly(Interactors.Planet.Delete.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles :error output" do
+      with_mocks([
+        {Interactors.Planet.Delete, [], [call: fn _input -> {:error, %Changeset{}} end]},
+        {Contracts.Planet.Delete, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert {:error, %Changeset{}} == StarWars.delete_planet(input)
+
+        assert_called_exactly(Interactors.Planet.Delete.call(input), 1)
+      end
+    end
+
+    test "calls right interactor and raises when output is not handled" do
+      with_mocks([
+        {Interactors.Planet.Delete, [], [call: fn _input -> %Planet{} end]},
+        {Contracts.Planet.Delete, [], [validate_input: &{:ok, &1}]}
+      ]) do
+        input = %{
+          id: ""
+        }
+
+        assert_raise WithClauseError, fn ->
+          StarWars.delete_planet(input)
+        end
+
+        assert_called_exactly(Interactors.Planet.Delete.call(input), 1)
+      end
+    end
+  end
 end
