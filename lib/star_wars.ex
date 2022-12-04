@@ -135,6 +135,31 @@ defmodule StarWars do
   end
 
   @doc """
+  Gets a planet by id.
+  Raises `Ecto.NoResultError` if the Planet does not exist.
+
+  ## Examples
+      iex> get_planet!(%{id: "679a45df-380c-4057-ac73-a0f1de5abb5b"}
+      {:ok, %Planet{}}
+
+      iex> get_planet!(%{id: "d5265c50-67ab-4a11-8d7e-8c2caa589634"}
+      ** (Ecto.NoResultsError)
+
+      iex> get_planet!(%{id: "invalid"}
+      ** (Ecto.Query.CastError)
+  """
+
+  def get_planet!(input) do
+    case Contracts.Planet.Get.validate_input(input) do
+      {:ok, validated_input} ->
+        %Planet{} = Interactors.Planet.Get.call(validated_input)
+
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  @doc """
   Creates or updates a planet.
 
   ## Examples

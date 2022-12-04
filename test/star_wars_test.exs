@@ -304,6 +304,52 @@ defmodule StarWarsTest do
     end
   end
 
+  describe "get_planet/1" do
+    test "calls right interactor and handles output for Planet struct" do
+      with_mocks([
+        {Interactors.Planet.Get, [], [call: fn _input -> %Planet{} end]},
+        {Contracts.Planet.Get, [], [validate_input: fn attrs -> {:ok, attrs} end]}
+      ]) do
+        input = %{id: ""}
+        assert %Planet{} == StarWars.get_planet!(input)
+
+        assert_called_exactly(Interactors.Planet.Get.call(input), 1)
+        assert_called_exactly(Contracts.Planet.Get.validate_input(input), 1)
+      end
+    end
+
+    test "calls right interactor and raises when output is not a Planet struct" do
+      with_mocks([
+        {Interactors.Planet.Get, [], [call: fn _input -> "string" end]},
+        {Contracts.Planet.Get, [], [validate_input: fn attrs -> {:ok, attrs} end]}
+      ]) do
+        input = %{id: ""}
+
+        assert_raise MatchError, fn ->
+          StarWars.get_planet!(input)
+        end
+
+        assert_called_exactly(Interactors.Planet.Get.call(input), 1)
+        assert_called_exactly(Contracts.Planet.Get.validate_input(input), 1)
+      end
+    end
+
+    test "calls right interactor and handles invalid input" do
+      with_mocks([
+        {Interactors.Planet.Get, [], [call: fn _input -> %Planet{} end]},
+        {Contracts.Planet.Get, [], [validate_input: fn _attrs -> {:error, %Ecto.Changeset{}} end]}
+      ]) do
+        input = %{id: ""}
+
+        assert {:error, %Ecto.Changeset{}} ==
+                 StarWars.get_planet!(input)
+
+        assert_not_called(Interactors.Planet.Get.call(input))
+        assert_called_exactly(Contracts.Planet.Get.validate_input(input), 1)
+      end
+    end
+  end
+
   describe "upsert_planet/1" do
     test "calls right interactor and handles :ok output" do
       with_mocks([
