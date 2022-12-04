@@ -22,7 +22,14 @@ defmodule StarWars.Interactors.Planet.ListTest do
 
     test "paginates results" do
       records = Factory.insert_list(3, :planet)
-      records = records |> Repo.reload!() |> Enum.sort_by(& &1.inserted_at) |> Enum.reverse()
+
+      records =
+        records
+        |> Repo.reload!()
+        |> Repo.preload([:climates, :terrains])
+        |> Repo.preload(movies: :director)
+        |> Enum.sort_by(& &1.inserted_at)
+        |> Enum.reverse()
 
       default_input = %{page: 1, page_size: 10}
       assert_paginate_query(List, :call, default_input, records)

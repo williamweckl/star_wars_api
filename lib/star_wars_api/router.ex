@@ -12,6 +12,14 @@ defmodule StarWarsAPI.Router do
     get "/v1", HealthCheckController, :index
   end
 
+  scope "/v1", StarWarsAPI.V1 do
+    pipe_through :api
+
+    resources "/planets", PlanetController, only: [:index], as: :v1_planet
+  end
+
+  # coveralls-ignore-start
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -28,4 +36,6 @@ defmodule StarWarsAPI.Router do
       live_dashboard "/dashboard", metrics: StarWarsAPI.Telemetry
     end
   end
+
+  # coveralls-ignore-end
 end

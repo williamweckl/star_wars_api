@@ -68,3 +68,23 @@ mix load_planet_from_integration 1
 The argument being received by the commands is the planet ID, you can change it as you wish.
 
 To run the docker command, the application container needs to be running.
+
+## Using Endpoints
+
+Before calling endpoints, be sure that the server is running. See the [Start](#start) section.
+
+### /v1/planets
+
+[Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/planet/get_v1_planets)
+
+You can run test the endpoint by running the below curl command:
+
+```bash
+curl --header "Content-Type: application/json" http://localhost:4000/v1/planets
+```
+
+You can filter by name by running the below curl command:
+
+```bash
+curl --header "Content-Type: application/json" http://localhost:4000/v1/planets?name=tatoo
+```

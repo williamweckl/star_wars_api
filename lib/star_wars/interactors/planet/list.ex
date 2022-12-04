@@ -31,6 +31,8 @@ defmodule StarWars.Interactors.Planet.List do
     |> filter_not_deleted()
     |> filter_by_name(input)
     |> order_by(desc: :inserted_at)
+    |> preload([:climates, :terrains])
+    |> preload(movies: :director)
     |> paginate(Repo, %{page: page, page_size: page_size})
   end
 
