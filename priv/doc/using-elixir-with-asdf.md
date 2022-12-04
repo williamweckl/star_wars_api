@@ -50,7 +50,7 @@ For code linting, the library [credo](https://github.com/rrrene/credo) was used.
 You can run the linter by running the command:
 
 ```
-mix credo 
+mix credo
 ```
 
 You can also pass arguments to the linter command to check a single file or path. To do that follow the example bellow:
@@ -69,7 +69,7 @@ You can run the formatter with the bellow command:
 mix format
 ```
 
-The command usually does not have an output, it just formats the files. You can run `git status` to see the files changed.
+The command usually does not have any output, it just formats the files. You can run `git status` to see the files changed.
 
 ### Running tests
 

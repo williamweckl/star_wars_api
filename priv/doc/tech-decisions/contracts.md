@@ -18,11 +18,11 @@ When I was working with Ruby and I started to implement Use Cases using a Clean 
 
 It was a common thing to have different validations for different use cases and all these validations was being made at the Use Case code or at the persistence layer with a lot of ifs and elses.
 
-Clean Architecture is just a concept, but this concept is more about the mindset of how to develop things than about specific language implementations. This means that contracts are not an specific concept from clean architecture, but a layer that can complement this vision/mindset.
+Clean Architecture is just a concept, and this concept is more about the mindset of how to develop things than about specific language implementations. This means that contracts are not an specific concept from clean architecture, but a layer that can complement this vision/mindset.
 
 At the time, I studied some alternatives and found a Ruby framework that was doing something great to solve the issue. The framework was [trailblazer](https://github.com/trailblazer/trailblazer) and the contract layer implemented by this project is heavily inspired by trailbalzer's contracts.
 
-Working at Betterfly, I helper my Leader (Bruno Silva) to write a blog post about the use of clean architecture with Elixir and contracts. The post describes better the motivation behind it. You can read it [here](https://medium.com/betterfly-tech/clean-architecture-input-validation-with-elixir-b1a076210942).
+Working at Betterfly, I helped my leader (Bruno Silva) to write a blog post about the use of clean architecture with Elixir and contracts. The post describes better the motivation behind it. You can read it [here](https://medium.com/betterfly-tech/clean-architecture-input-validation-with-elixir-b1a076210942).
 
 ## The challenge
 

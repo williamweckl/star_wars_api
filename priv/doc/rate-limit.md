@@ -4,7 +4,7 @@ Besides not the requirement of the challenge, I wanted to implement something si
 
 Rate Limit was implemented using the Elixir library [ExHammer](https://github.com/ExHammer/hammer) that has some backends to persist the request counts. The backend chosen was the simplier one (ETS), as I mentioned before the idea was to just show the concept.
 
-Using ETS backend, ExHammer will persist the information it needs to ETS tables, that are in memory structures from Erlang.
+By using ETS backend, ExHammer will persist the information it needs to ETS tables, that are in memory structures from Erlang.
 
 The approach is not very good for production - [as the library documentation suggests](https://github.com/ExHammer/hammer/blob/master/README.md?plain=1#L76) - because usually production environments has load balancers with more than one application running. Persisting the data only to the instance's memory will make that the user can do more requests as allowed by the configuration.
 

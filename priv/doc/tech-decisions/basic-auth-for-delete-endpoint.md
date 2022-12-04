@@ -20,7 +20,7 @@ For production environments, this configuration must come from an environment va
 
 ## How to use
 
-Set the header Authorization to the base 64 encoded string `admin:<password_setted_at_config>` (eh.: `admin:admin`) with the prefix `Basic `.
+Set the header Authorization to the base 64 encoded string `admin:<password_setted_at_config>` (eg.: `admin:admin`) with the prefix `Basic `.
 
 Example using curl and admin password:
 

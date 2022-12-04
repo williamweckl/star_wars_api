@@ -6,11 +6,11 @@ The database model was inspired by the defined [Business Entities](https://githu
 
 This project was inspired by concepts like Domain Driven Design and Clean Architecture.
 
-These concepts handles business entities and the persistence layer as different things. These two things are very related to each other, but are not the same. 
+These concepts handles business entities and the persistence layer as different things. These two things are very related to each other, but are not the same.
 
 When we think about the business (Entities), we are thinking about how non-tech people understands the business, the naming they give to entities and its attributes, the expected rules related to these components.
 
-When we think about persistence, the naming could even be the same, but there are other concerns to be handled like integration of the data, performance of queries using these data, reuse of the data structures, etc...
+When we think about persistence, the naming could even be the same, but there are other concerns to be handled like integrity of the data, performance of queries using these data, reuse of the data structures, etc...
 
 For example, for the business is important that a **Planet** is related to one or many **Climates**, but how this will be persisted can impact in a lot of aspects of the application like performance or reuse.
 
@@ -20,7 +20,7 @@ There are also persistence fields that are not mapped as business entity attribu
 
 All the timestamp fields are created as `timestamp without timezone` understanding that the data will always be persisted in UTC-0 timezone.
 
-Having different timezones at database can become messy and the application can handle better the timezone differences if it exists. 
+Having different timezones at database can become messy and the application can handle better the timezone differences if it exists.
 
 ## Database tables
 

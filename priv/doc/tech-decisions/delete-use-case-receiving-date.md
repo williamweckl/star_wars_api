@@ -18,7 +18,7 @@ What I try to do is to keep my functions as pure as possible, keeping what produ
 
 What the delete planet use case does is to fill the deleted_at field and the ideia is to fill it with the current timestamp of the system.
 
-To keep things purer, I decided to receive the `deleted_at` information as an argument instead of setting it directly to the current timestamp at the interactor. This decision made the code easir to test since I can test exacly the result I am expecting to happen.
+To keep things purer, I decided to receive the `deleted_at` information as an argument instead of setting it directly to the current timestamp at the interactor. This decision made the code easier to test since I can test exacly the result I am expecting to happen.
 
 Of course the interactor function is not pure because it depends on the database, but this is something I cannot avoid at this function. Basically the decision was to avoid side effects of what can be avoided.
 

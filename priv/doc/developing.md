@@ -46,7 +46,7 @@ You can run the formatter with the bellow command:
 make docker.code.format
 ```
 
-The command usually does not have an output, it just formats the files. You can run `git status` to see the files changed.
+The command usually does not have any output, it just formats the files. You can run `git status` to see the files changed.
 
 ## Running tests
 
