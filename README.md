@@ -79,7 +79,7 @@ Before calling endpoints, be sure that the server is running. See the [Start](#s
 
 [Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/planet/get_v1_planets)
 
-You can run test the endpoint by running the below curl command:
+You can test the endpoint by running the below curl command:
 
 ```bash
 curl --header "Content-Type: application/json" http://localhost:4000/v1/planets
@@ -90,3 +90,15 @@ You can filter by name by running the below curl command:
 ```bash
 curl --header "Content-Type: application/json" http://localhost:4000/v1/planets?name=tatoo
 ```
+
+### /v1/planets/:planet_id
+
+[Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/planet/get_v1_planets__planet_id_)
+
+You can test the endpoint by running the below curl command:
+
+```bash
+curl --header "Content-Type: application/json" http://localhost:4000/v1/planets/<planet_id>
+```
+
+Don't forget to change the `<planet_id>` above to an existent planet id.

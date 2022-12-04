@@ -15,7 +15,7 @@ defmodule StarWarsAPI.Router do
   scope "/v1", StarWarsAPI.V1 do
     pipe_through :api
 
-    resources "/planets", PlanetController, only: [:index], as: :v1_planet
+    resources "/planets", PlanetController, only: [:index, :show], as: :v1_planet
   end
 
   # coveralls-ignore-start

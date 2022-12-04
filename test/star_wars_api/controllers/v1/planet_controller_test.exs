@@ -6,7 +6,7 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
   alias StarWars.Repo
 
-  defp planet_fixture(attrs) do
+  defp planet_fixture(attrs \\ %{}) do
     Factory.insert(:planet, attrs)
     |> Repo.preload([:climates, :terrains])
     |> Repo.preload(movies: :director)
@@ -122,6 +122,40 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
         |> Jason.encode!()
 
       assert body == expected_body
+    end
+  end
+
+  describe "show" do
+    test "returns 200 with planet", %{conn: conn} do
+      planet = planet_fixture()
+
+      conn = get(conn, Routes.v1_planet_path(conn, :show, planet.id))
+
+      body = response(conn, 200)
+
+      expected_body =
+        planet
+        |> PlanetSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
+
+    test "returns 404 status error when planet id does not exist", %{conn: conn} do
+      {_status, _headers, body} =
+        assert_error_sent :not_found, fn ->
+          get(conn, Routes.v1_planet_path(conn, :show, Ecto.UUID.generate()))
+        end
+
+      json_body = Phoenix.json_library().decode!(body)
+      assert json_body["errors"]["detail"] == "Not Found"
+    end
+
+    test "returns 422 status error when planet id is invalid", %{conn: conn} do
+      conn = get(conn, Routes.v1_planet_path(conn, :show, "invalid"))
+
+      json_body = json_response(conn, 422)
+      assert json_body == %{"errors" => %{"id" => ["is invalid"]}}
     end
   end
 end

@@ -24,6 +24,8 @@ defmodule StarWarsAPI do
       import Plug.Conn
       import StarWarsAPI.Gettext
       alias StarWarsAPI.Router.Helpers, as: Routes
+
+      action_fallback StarWarsAPI.FallbackController
     end
   end
 
