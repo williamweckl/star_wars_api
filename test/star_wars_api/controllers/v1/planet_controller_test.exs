@@ -131,6 +131,8 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
       conn = get(conn, Routes.v1_planet_path(conn, :show, planet.id))
 
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
       body = response(conn, 200)
 
       expected_body =
