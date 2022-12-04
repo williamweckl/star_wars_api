@@ -29,6 +29,7 @@ Other decisions made are specified at this README.
 ## Aditional features implemented
 
   * [Basic HTTP Authentication for delete endpoint](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md).
+  * [Soft Delete](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/soft-delete.md).
 
 ## Documentation and guides
 
@@ -153,5 +154,6 @@ Wanna contribute and don't know where to start? There are some cool features in 
 - Able to create and update records without loading it from the Star Wars public API
 - Task to load all planets from Star Wars public API
 - Search planets by movie, climate, terrain and movie director
+- Change the API language by setting Accept-Language header and error messages translation.
 
 If you liked those ideas or have any other feel free to open a feature request issue or a PR. :stuck_out_tongue:
