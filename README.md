@@ -125,3 +125,17 @@ curl --header "Content-Type: application/json" --header "Authorization: Basic YW
 ```
 
 Don't forget to change the `<planet_id>` above to an existent planet id.
+
+## Application Logs
+
+All the logs the application produces are printed to the terminal and also persisted to files stored at the `logs/` folder at the project root.
+
+Info logs are stored in a file called `info.log` and errors inside a file called `errors.log`. For development and test environments, to differ the environment, the files are stored in a folder with the enviroment name.
+
+For development environment, the log format was opted to be something more readable by the developers according to the example:
+
+```
+12:22:20.726 module=Mix.Tasks.LoadPlanetFromIntegration [info] Planet was loaded successfully!
+```
+
+Production log format configuration is very similar with the change that the timestamp contains also the date. The decision was to keep the production configuration as the default for phoenix applications since there is no tool to extract this logs yet. Most of the tools can handle this default format and some improvements can be made in the future.

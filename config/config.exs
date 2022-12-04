@@ -25,6 +25,26 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Tell logger to load a LoggerFileBackend processes
+config :logger,
+  backends: [
+    :console,
+    {LoggerFileBackend, :info_log},
+    {LoggerFileBackend, :error_log}
+  ]
+
+# Configuration for the {LoggerFileBackend, :info_log} backend
+config :logger, :info_log,
+  path: "logs/info.log",
+  level: :info,
+  metadata: [:module, :function_name]
+
+# Configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :error_log,
+  path: "logs/error.log",
+  level: :error,
+  metadata: [:module, :function_name]
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

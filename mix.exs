@@ -27,7 +27,7 @@ defmodule StarWars.MixProject do
   def application do
     [
       mod: {StarWars.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :logger_file_backend, :runtime_tools]
     ]
   end
 
@@ -59,6 +59,9 @@ defmodule StarWars.MixProject do
 
       # Web requests
       {:httpoison, "~> 1.8"},
+
+      # Logs
+      {:logger_file_backend, "~> 0.0.13"},
 
       # Test
       {:excoveralls, "~> 0.14", only: :test, runtime: false},

@@ -27,5 +27,11 @@ config :star_wars, StarWarsAPI.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Configuration for the {LoggerFileBackend, :info_log} backend
+config :logger, :info_log, path: "logs/test/info.log"
+
+# Configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :error_log, path: "logs/test/error.log"
+
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

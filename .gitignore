@@ -22,5 +22,8 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 star_wars-*.tar
 
+# Log files.
+/logs/
+
 # IDE settings files
 .vscode

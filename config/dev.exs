@@ -54,6 +54,18 @@ config :star_wars, StarWarsAPI.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
+# Configuration for the {LoggerFileBackend, :info_log} backend
+config :logger, :info_log,
+  path: "logs/dev/info.log",
+  level: :info,
+  metadata: [:module, :function_name]
+
+# Configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :error_log,
+  path: "logs/dev/error.log",
+  level: :error,
+  metadata: [:module, :function_name]
+
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
