@@ -22,7 +22,7 @@ config :star_wars, StarWarsAPI.Endpoint,
   http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
-  debug_errors: true,
+  debug_errors: false,
   secret_key_base: "V6CiyOMb+2AVeuOLvSj0AydJ3JNhDnN0GHMWXHC82zFlkV6iaGJMmuXb3DlDBqnw",
   watchers: [],
   admin_password: "admin"
