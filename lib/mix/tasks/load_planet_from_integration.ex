@@ -17,7 +17,7 @@ defmodule Mix.Tasks.LoadPlanetFromIntegration do
   @integration_source Application.compile_env!(:star_wars, :integration_source)
 
   @impl Mix.Task
-  def run([integration_id]) do
+  def run(["" <> integration_id]) do
     attrs = %{
       integration_source: @integration_source,
       integration_id: integration_id
