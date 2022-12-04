@@ -33,6 +33,8 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
       conn = get(conn, Routes.v1_planet_path(conn, :index))
 
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
       body = response(conn, 200)
 
       expected_body =
@@ -56,6 +58,8 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
       conn = get(conn, Routes.v1_planet_path(conn, :index))
 
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
       body = response(conn, 200)
 
       expected_body =
@@ -78,6 +82,8 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
 
       conn = get conn, Routes.v1_planet_path(conn, :index), %{page: 2, page_size: 1}
 
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
       body = response(conn, 200)
 
       expected_body =
@@ -99,6 +105,8 @@ defmodule StarWarsAPI.V1.PlanetControllerTest do
       _two = planet_fixture(%{name: "B"})
 
       conn = get conn, Routes.v1_planet_path(conn, :index), %{name: "A"}
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
 
       body = response(conn, 200)
 
