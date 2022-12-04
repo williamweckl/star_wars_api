@@ -17,7 +17,7 @@ defmodule StarWars.Interactors.MovieDirector.Upsert do
   @doc """
   Upserts a movie director.
   """
-  def call(%{} = input) do
+  def call(%{name: _name} = input) do
     input
     |> normalize_name()
     |> get_existent_movie_director()
@@ -25,9 +25,9 @@ defmodule StarWars.Interactors.MovieDirector.Upsert do
     |> handle_output()
   end
 
-  defp normalize_name(input) do
+  defp normalize_name(%{name: name} = input) do
     normalized_name =
-      input.name
+      name
       |> String.trim()
       |> String.split(" ")
       |> Enum.map_join(" ", &String.capitalize/1)
@@ -36,9 +36,9 @@ defmodule StarWars.Interactors.MovieDirector.Upsert do
     |> Map.put(:name, normalized_name)
   end
 
-  defp get_existent_movie_director(input) do
+  defp get_existent_movie_director(%{name: name} = input) do
     existent_movie_director =
-      MovieDirector |> where([t], is_nil(t.deleted_at)) |> Repo.get_by(name: input.name)
+      MovieDirector |> where([t], is_nil(t.deleted_at)) |> Repo.get_by(name: name)
 
     input |> Map.put(:existent_movie_director, existent_movie_director)
   end
@@ -49,12 +49,14 @@ defmodule StarWars.Interactors.MovieDirector.Upsert do
     |> Repo.insert()
   end
 
-  defp upsert_movie_director(%{existent_movie_director: existent_movie_director} = input) do
+  defp upsert_movie_director(
+         %{existent_movie_director: %MovieDirector{} = existent_movie_director} = input
+       ) do
     existent_movie_director
     |> MovieDirector.changeset(input)
     |> Repo.update()
   end
 
-  defp handle_output({:ok, movie_director}), do: {:ok, movie_director}
-  defp handle_output({:error, changeset}), do: {:error, changeset}
+  defp handle_output({:ok, %MovieDirector{} = movie_director}), do: {:ok, movie_director}
+  defp handle_output({:error, %Ecto.Changeset{} = changeset}), do: {:error, changeset}
 end

@@ -9,6 +9,7 @@ defmodule StarWars.Interactors.Planet.List do
   - If the other filter params are empty, it will return planets without any filters but respecting pagination rules.
   - Orders by `inserted_at` desc. This means that newer planets comes first.
   - Deleted records are excluded form the query.
+  - Planet associations (climates, terrains and movies) are preloaded.
 
   ## Input params allowed
   - `page` :: Used to paginate.
@@ -26,7 +27,8 @@ defmodule StarWars.Interactors.Planet.List do
   @doc """
   Lists planets.
   """
-  def call(%{page: page, page_size: page_size} = input) do
+  def call(%{page: page, page_size: page_size} = input)
+      when is_integer(page) and is_integer(page_size) do
     Planet
     |> filter_not_deleted()
     |> filter_by_name(input)

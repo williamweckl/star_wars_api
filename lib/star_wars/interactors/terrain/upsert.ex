@@ -17,7 +17,7 @@ defmodule StarWars.Interactors.Terrain.Upsert do
   @doc """
   Upserts a terrain.
   """
-  def call(%{} = input) do
+  def call(%{id: _id} = input) do
     input
     |> normalize_id()
     |> get_existent_terrain()
@@ -25,9 +25,9 @@ defmodule StarWars.Interactors.Terrain.Upsert do
     |> handle_output()
   end
 
-  defp normalize_id(input) do
+  defp normalize_id(%{id: id} = input) do
     normalized_id =
-      input.id
+      id
       |> String.trim()
       |> String.downcase()
       |> String.replace(" ", "_")
@@ -36,8 +36,8 @@ defmodule StarWars.Interactors.Terrain.Upsert do
     |> Map.put(:id, normalized_id)
   end
 
-  defp get_existent_terrain(input) do
-    existent_terrain = Terrain |> Repo.get_by(id: input.id)
+  defp get_existent_terrain(%{id: id} = input) do
+    existent_terrain = Terrain |> Repo.get_by(id: id)
 
     input |> Map.put(:existent_terrain, existent_terrain)
   end
@@ -48,12 +48,12 @@ defmodule StarWars.Interactors.Terrain.Upsert do
     |> Repo.insert()
   end
 
-  defp upsert_terrain(%{existent_terrain: existent_terrain} = input) do
+  defp upsert_terrain(%{existent_terrain: %Terrain{} = existent_terrain} = input) do
     existent_terrain
     |> Terrain.changeset(input)
     |> Repo.update()
   end
 
-  defp handle_output({:ok, terrain}), do: {:ok, terrain}
-  defp handle_output({:error, changeset}), do: {:error, changeset}
+  defp handle_output({:ok, %Terrain{} = terrain}), do: {:ok, terrain}
+  defp handle_output({:error, %Ecto.Changeset{} = changeset}), do: {:error, changeset}
 end

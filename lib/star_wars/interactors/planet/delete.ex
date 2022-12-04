@@ -27,10 +27,10 @@ defmodule StarWars.Interactors.Planet.Delete do
 
   defp delete_planet(%{planet: {:error, _} = get_planet_error}), do: get_planet_error
 
-  defp delete_planet(%{planet: planet, deleted_at: deleted_at}) do
+  defp delete_planet(%{planet: %Planet{} = planet, deleted_at: deleted_at}) do
     planet |> Planet.changeset(%{deleted_at: deleted_at}) |> Repo.update()
   end
 
   defp handle_output({:ok, %Planet{} = planet}), do: {:ok, planet}
-  defp handle_output({:error, changeset}), do: {:error, changeset}
+  defp handle_output({:error, %Ecto.Changeset{} = changeset}), do: {:error, changeset}
 end

@@ -32,6 +32,7 @@ defmodule StarWars.Interactors.Planet.LoadFromIntegration do
     case adapter.get_planet(integration_id) do
       {:ok,
        %PlanetResponse{climates: climates, terrains: terrains, movies: movies} = planet_response} ->
+        # Database transaction
         Multi.new()
         |> Multi.run(:climates, &upsert_climates(&1, &2, climates))
         |> Multi.run(:terrains, &upsert_terrains(&1, &2, terrains))
@@ -118,7 +119,8 @@ defmodule StarWars.Interactors.Planet.LoadFromIntegration do
     movie
   end
 
-  defp get_movie_director_by_name_from_list(movie_directors, director_name) do
+  defp get_movie_director_by_name_from_list(movie_directors, "" <> director_name)
+       when is_list(movie_directors) do
     Enum.find(movie_directors, fn movie_director ->
       movie_director.name == director_name
     end)
@@ -132,9 +134,9 @@ defmodule StarWars.Interactors.Planet.LoadFromIntegration do
            movies: movies
          },
          %PlanetResponse{
-           name: name,
+           name: "" <> name,
            integration_source: integration_source,
-           integration_id: integration_id
+           integration_id: "" <> integration_id
          }
        ) do
     StarWars.upsert_planet(%{

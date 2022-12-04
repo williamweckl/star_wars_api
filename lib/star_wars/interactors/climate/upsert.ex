@@ -17,7 +17,7 @@ defmodule StarWars.Interactors.Climate.Upsert do
   @doc """
   Upserts a climate.
   """
-  def call(%{} = input) do
+  def call(%{id: _id} = input) do
     input
     |> normalize_id()
     |> get_existent_climate()
@@ -25,9 +25,9 @@ defmodule StarWars.Interactors.Climate.Upsert do
     |> handle_output()
   end
 
-  defp normalize_id(input) do
+  defp normalize_id(%{id: id} = input) do
     normalized_id =
-      input.id
+      id
       |> String.trim()
       |> String.downcase()
       |> String.replace(" ", "_")
@@ -36,8 +36,8 @@ defmodule StarWars.Interactors.Climate.Upsert do
     |> Map.put(:id, normalized_id)
   end
 
-  defp get_existent_climate(input) do
-    existent_climate = Climate |> Repo.get_by(id: input.id)
+  defp get_existent_climate(%{id: id} = input) do
+    existent_climate = Climate |> Repo.get_by(id: id)
 
     input |> Map.put(:existent_climate, existent_climate)
   end
@@ -48,12 +48,12 @@ defmodule StarWars.Interactors.Climate.Upsert do
     |> Repo.insert()
   end
 
-  defp upsert_climate(%{existent_climate: existent_climate} = input) do
+  defp upsert_climate(%{existent_climate: %Climate{} = existent_climate} = input) do
     existent_climate
     |> Climate.changeset(input)
     |> Repo.update()
   end
 
-  defp handle_output({:ok, climate}), do: {:ok, climate}
-  defp handle_output({:error, changeset}), do: {:error, changeset}
+  defp handle_output({:ok, %Climate{} = climate}), do: {:ok, climate}
+  defp handle_output({:error, %Ecto.Changeset{} = changeset}), do: {:error, changeset}
 end

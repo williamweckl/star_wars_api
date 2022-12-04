@@ -17,7 +17,10 @@ defmodule StarWars.Interactors.Planet.Upsert do
   @doc """
   Upserts a planet.
   """
-  def call(%{integration_source: _integration_source, integration_id: _integration_id} = input) do
+  def call(
+        %{name: _name, integration_source: _integration_source, integration_id: _integration_id} =
+          input
+      ) do
     input
     |> normalize_name()
     |> get_existent_planet()
@@ -61,7 +64,7 @@ defmodule StarWars.Interactors.Planet.Upsert do
 
   defp upsert_planet(
          %{
-           existent_planet: existent_planet,
+           existent_planet: %Planet{} = existent_planet,
            climates: climates,
            terrains: terrains,
            movies: movies
@@ -87,5 +90,5 @@ defmodule StarWars.Interactors.Planet.Upsert do
   end
 
   defp handle_output({:ok, %Planet{} = planet}), do: {:ok, planet}
-  defp handle_output({:error, changeset}), do: {:error, changeset}
+  defp handle_output({:error, %Ecto.Changeset{} = changeset}), do: {:error, changeset}
 end
