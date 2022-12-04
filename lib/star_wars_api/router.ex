@@ -20,6 +20,7 @@ defmodule StarWarsAPI.Router do
     pipe_through :api
 
     resources "/planets", PlanetController, only: [:index, :show], as: :v1_planet
+    resources "/movies", MovieController, only: [:show], as: :v1_movie
   end
 
   scope "/v1", StarWarsAPI.V1 do
