@@ -31,6 +31,7 @@ Other decisions made are specified at this README.
   * [Basic HTTP Authentication for delete endpoint](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md).
   * [Soft Delete](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/soft-delete.md).
   * [API Rate Limit](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/rate-limit.md)
+  * [Monitoring](#monitoring)
   * Movies list endpoint.
   * Get a movie by it's ID endpoint.
 
@@ -181,6 +182,16 @@ For development environment, the log format was opted to be something more reada
 ```
 
 Production log format configuration is very similar with the change that the timestamp contains also the date. The decision was to keep the production configuration as the default for phoenix applications since there is no tool to extract this logs yet. Most of the tools can handle this default format and some improvements can be made in the future.
+
+## Monitoring
+
+To monitor the application requests and processes the [Phoenix LiveDashboard](https://github.com/phoenixframework/phoenix_live_dashboard) tool was used. Since this is just a challenge, I think this is enought for now just to show the concept.
+
+Phoenix LiveDashboard shows metrics about the request timings, query timings, requests logs, machine resources and other cool things.
+
+Phoenix LiveDashboard can be used even in production.
+
+To access the dashboard you can visit [`localhost:4000/performance_dashboard`](http://localhost:4000/performance_dashboard) from your browser. It will ask for a username and password that is the same for the planet delete endpoint (`admin/admin` for development environment).
 
 ## Contributing
 

@@ -82,9 +82,9 @@ defmodule StarWarsAPI.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through [:fetch_session, :protect_from_forgery, :admin]
 
-      live_dashboard "/dashboard", metrics: StarWarsAPI.Telemetry
+      live_dashboard "/performance_dashboard", metrics: StarWarsAPI.Telemetry
     end
   end
 
