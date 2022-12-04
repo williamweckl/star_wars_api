@@ -1,5 +1,7 @@
 # Star Wars API
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/williamweckl/star_wars_api/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/williamweckl/star_wars_api/tree/main)
+
 Project built for a challenge to join a misterious galactic company.
 
 Would be this company from the empire? Would be from the republic? I don't know yet, but they want to use an API to build something great on the top of it, I think it's a game. Would this great game help the galaxy or would this game be used to aid an evil plan?
