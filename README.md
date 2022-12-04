@@ -24,6 +24,10 @@ Other decisions made are specified at this README.
   * Get a planet by it's ID.
   * Remove a planet.
 
+## Aditional features implemented
+
+  * [Basic HTTP Authentication for delete endpoint](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md).
+
 ## Documentation and guides
 
   * [Technologies used](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/techs-used.md)
@@ -46,6 +50,7 @@ Other decisions made are specified at this README.
   * [Integration Source Adapters](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/integration-source-adapters.md)
   * [Serializers](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/serializers.md)
   * [API Versioning](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/api-versioning.md)
+  * [Basic HTTP Authentication](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md)
 
 ## Start
 
@@ -75,7 +80,9 @@ To run the docker command, the application container needs to be running.
 
 Before calling endpoints, be sure that the server is running. See the [Start](#start) section.
 
-### /v1/planets
+### get /v1/planets
+
+List planets.
 
 [Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/planet/get_v1_planets)
 
@@ -91,7 +98,9 @@ You can filter by name by running the below curl command:
 curl --header "Content-Type: application/json" http://localhost:4000/v1/planets?name=tatoo
 ```
 
-### /v1/planets/:planet_id
+### get /v1/planets/:planet_id
+
+Get an existing planet by its ID.
 
 [Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/planet/get_v1_planets__planet_id_)
 
@@ -99,6 +108,20 @@ You can test the endpoint by running the below curl command:
 
 ```bash
 curl --header "Content-Type: application/json" http://localhost:4000/v1/planets/<planet_id>
+```
+
+Don't forget to change the `<planet_id>` above to an existent planet id.
+
+### delete /v1/planets/:planet_id
+
+Deletes an existing planet by its ID.
+
+[Endpoint documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0#/planet/delete_v1_planets__planet_id_)
+
+You can test the endpoint by running the below curl command:
+
+```bash
+curl --header "Content-Type: application/json" --header "Authorization: Basic YWRtaW46YWRtaW4=" --request "DELETE" http://localhost:4000/v1/planets/<planet_id>
 ```
 
 Don't forget to change the `<planet_id>` above to an existent planet id.
