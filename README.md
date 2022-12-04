@@ -44,6 +44,7 @@ Other decisions made are specified at this README.
 
 ## Technical decisions
 
+  * [Test libraries used](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/test-libraries.md)
   * [Separated entities for climates and terrains](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/separate-entities-for-climates-and-terrains.md)
   * [Entities IDs](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/ids.md)
   * [PostgreSQL enums](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/postgres-enums.md)

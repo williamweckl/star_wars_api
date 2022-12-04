@@ -81,3 +81,5 @@ ARGS="test/star_wars_api/views/error_view_test.exs" make docker.app.test_with_co
 ```
 
 The above commands generates an HTML file with the coverage summary at `cover/excoveralls.html`. You can run it by your browser to see the output.
+
+Also the HTML coverage report is being uploaded as an artifact when the CI runs. This helps to identify files or lines of code that are not covered.
