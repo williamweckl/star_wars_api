@@ -22,7 +22,8 @@ config :star_wars, StarWarsAPI.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "hPMccC5nxUCzbAg+PEEP0WRl1X5kTpjCak0sLGlFEauQoBeEcZE5gCsjrvVkLXz6",
   server: false,
-  admin_password: "admin"
+  admin_password: "admin",
+  rate_limit_enabled: false
 
 # Print only warnings and errors during test
 config :logger, level: :warn

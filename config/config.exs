@@ -18,7 +18,12 @@ config :star_wars, StarWarsAPI.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: StarWarsAPI.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: StarWarsAPI.PubSub,
-  live_view: [signing_salt: "GHNBnwIx"]
+  live_view: [signing_salt: "GHNBnwIx"],
+  rate_limit_enabled: true
+
+# Rate limit configuration
+config :hammer,
+  backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
 
 # Configures Elixir's Logger
 config :logger, :console,

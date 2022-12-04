@@ -1,8 +1,18 @@
 defmodule StarWarsAPI.Router do
   use StarWarsAPI, :router
 
+  @rate_limit_enabled Application.compile_env!(:star_wars, StarWarsAPI.Endpoint)[
+                        :rate_limit_enabled
+                      ]
+
   pipeline :api do
     plug :accepts, ["json"]
+
+    plug StarWarsAPI.Plugs.RateLimit,
+      interval_ms: 60_000,
+      max_requests: 10,
+      namespace: "star_wars_api",
+      enabled: @rate_limit_enabled
   end
 
   pipeline :admin do

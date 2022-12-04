@@ -30,6 +30,7 @@ Other decisions made are specified at this README.
 
   * [Basic HTTP Authentication for delete endpoint](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md).
   * [Soft Delete](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/soft-delete.md).
+  * [API Rate Limit](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/rate-limit.md)
   * Movies list endpoint.
   * Get a movie by it's ID endpoint.
 
@@ -43,6 +44,7 @@ Other decisions made are specified at this README.
   * [Business Entities](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/entities.md)
   * [Database Model](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/database-model.md)
   * [Endpoints documentation](https://app.swaggerhub.com/apis/WILLIAMWECKL_1/star_wars_api/1.0.0)
+  * [API Rate Limit](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/rate-limit.md)
 
 ## Technical decisions
 

@@ -60,6 +60,9 @@ defmodule StarWars.MixProject do
       # Web requests
       {:httpoison, "~> 1.8"},
 
+      # API Rate limit
+      {:hammer, "~> 6.1"},
+
       # Logs
       {:logger_file_backend, "~> 0.0.13"},
 
