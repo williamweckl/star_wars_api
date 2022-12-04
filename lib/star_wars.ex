@@ -87,6 +87,31 @@ defmodule StarWars do
   # Movie
 
   @doc """
+  Gets a movie by id.
+  Raises `Ecto.NoResultError` if the Movie does not exist.
+
+  ## Examples
+      iex> get_movie!(%{id: "679a45df-380c-4057-ac73-a0f1de5abb5b"}
+      {:ok, %Movie{}}
+
+      iex> get_movie!(%{id: "d5265c50-67ab-4a11-8d7e-8c2caa589634"}
+      ** (Ecto.NoResultsError)
+
+      iex> get_movie!(%{id: "invalid"}
+      ** (Ecto.Query.CastError)
+  """
+
+  def get_movie!(input) do
+    case Contracts.Movie.Get.validate_input(input) do
+      {:ok, validated_input} ->
+        %Movie{} = Interactors.Movie.Get.call(validated_input)
+
+      {:error, %Changeset{} = changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  @doc """
   Creates or updates a movie director.
 
   ## Examples
