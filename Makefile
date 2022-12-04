@@ -15,13 +15,13 @@ help:			## Show this help.
 docker.app.start:	## Start APP containers.
 	docker-compose run -p 4000:4000 --rm api --name api
 
-docker.app.load_planet_from_integration:	## Start APP containers.
+docker.app.load_planet_from_integration:	## Loads a planet from the integration.
 	CONTAINER_ID=$$(docker ps -f name=api -q) && docker exec -it $$CONTAINER_ID mix load_planet_from_integration $(ARGS)
 
 docker.app.stop:	## Stop APP containers.
 	docker-compose stop
 
-docker.app.logs:	## Show logs from APP containers. Use opts=args for more options of docker-compose logs
+docker.app.logs:	## Show logs from APP containers. Use the env ARGS to set more options of docker-compose logs
 	docker-compose logs $(ARGS)
 
 docker.app.test:	## Run ExUnit test tool inside docker container.
@@ -42,5 +42,5 @@ docker.services.start:	## Start services containers.
 docker.services.stop:	## Stop services containers
 	docker-compose -f docker-compose-services.yml -p star_wars stop
 
-docker.services.logs:	## Show logs from services containers. Use opts=args for more options of docker-compose logs
+docker.services.logs:	## Show logs from services containers. Use the env ARGS to set more options of docker-compose logs
 	docker-compose -f docker-compose-services.yml -p star_wars logs $(ARGS)

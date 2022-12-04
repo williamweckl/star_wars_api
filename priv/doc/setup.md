@@ -4,6 +4,8 @@ The project is dockerized, this means that all commands and the web server can b
 
 You just need to have [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/) installed. With these two tools ready, you can run the application by folling the section to [start the APP](https://github.com/williamweckl/star_wars_api/blob/main/README.md#start).
 
+To facilitate the use of docker commands, some `make` commands were created. You can see all the commands and learn more about make in [this guide](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/make-commands.md).
+
 If you wish, you can still install Elixir language and run this project. I usually prefer this approach when I'm an active developer of the project because integrating IDE's or other tools to write code with linters and other language tools can be painfull. If you want, [here is a guide to install Elixir using ASDF](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/using-elixir-with-asdf.md).
 
 You can also install the language by common ways (without ASDF or other version tool), but I don't recommend it because it would be very difficult to handle the case that you have multiple projects using different versions of Elixir/Erlang in your machine and also version upgrades could be easier by using a tool like ASDF.
