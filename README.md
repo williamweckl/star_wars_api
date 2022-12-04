@@ -58,6 +58,7 @@ Other decisions made are specified at this README.
   * [Serializers](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/serializers.md)
   * [API Versioning](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/api-versioning.md)
   * [Basic HTTP Authentication](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/basic-auth-for-delete-endpoint.md)
+  * [Planet delete use case receiving deleted_at as input parameter](https://github.com/williamweckl/star_wars_api/blob/main/priv/doc/tech-decisions/delete-use-case-receiving-date.md)
 
 ## Start
 
