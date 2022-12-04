@@ -14,7 +14,8 @@ defmodule StarWars.ErrorsHandler do
   @doc """
   Logs the error.
   """
-  def report_error(module, function_name, error, stacktrace) do
+  def report_error(module, function_name, "" <> error, stacktrace)
+      when is_atom(module) and is_atom(function_name) do
     Logger.log(:error, error, module: module, function_name: function_name)
     Logger.log(:error, stacktrace, module: module, function_name: function_name)
   end
