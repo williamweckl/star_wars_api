@@ -34,7 +34,7 @@ defmodule StarWarsAPI.V1.MovieSerializer do
       id: movie.id,
       title: movie.title,
       release_date: movie.release_date,
-      director: MovieDirectorSerializer.serialize(movie.director),
+      director: MovieDirectorSerializer.serialize(movie.director, :without_root_key),
       inserted_at: movie.inserted_at,
       updated_at: movie.updated_at
     }

@@ -18,7 +18,7 @@ defmodule StarWarsAPI.V1.MovieSerializerTest do
                  id: record.id,
                  title: record.title,
                  release_date: record.release_date,
-                 director: MovieDirectorSerializer.serialize(record.director),
+                 director: MovieDirectorSerializer.serialize(record.director, :without_root_key),
                  inserted_at: record.inserted_at,
                  updated_at: record.updated_at
                }
@@ -43,7 +43,8 @@ defmodule StarWarsAPI.V1.MovieSerializerTest do
                    id: record_one.id,
                    title: record_one.title,
                    release_date: record_one.release_date,
-                   director: MovieDirectorSerializer.serialize(record_one.director),
+                   director:
+                     MovieDirectorSerializer.serialize(record_one.director, :without_root_key),
                    inserted_at: record_one.inserted_at,
                    updated_at: record_one.updated_at
                  },
@@ -51,7 +52,8 @@ defmodule StarWarsAPI.V1.MovieSerializerTest do
                    id: record_two.id,
                    title: record_two.title,
                    release_date: record_two.release_date,
-                   director: MovieDirectorSerializer.serialize(record_two.director),
+                   director:
+                     MovieDirectorSerializer.serialize(record_two.director, :without_root_key),
                    inserted_at: record_two.inserted_at,
                    updated_at: record_two.updated_at
                  }
@@ -74,7 +76,7 @@ defmodule StarWarsAPI.V1.MovieSerializerTest do
                id: record.id,
                title: record.title,
                release_date: record.release_date,
-               director: MovieDirectorSerializer.serialize(record.director),
+               director: MovieDirectorSerializer.serialize(record.director, :without_root_key),
                inserted_at: record.inserted_at,
                updated_at: record.updated_at
              }
