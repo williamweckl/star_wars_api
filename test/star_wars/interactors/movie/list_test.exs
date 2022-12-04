@@ -20,6 +20,16 @@ defmodule StarWars.Interactors.Movie.ListTest do
       assert Enum.sort(ids) == Enum.sort([one.id, two.id])
     end
 
+    test "excludes deleted director association from result entries" do
+      deleted_director = Factory.insert(:movie_director, %{deleted_at: DateTime.now!("Etc/UTC")})
+      _movie = fixture(%{director: deleted_director})
+
+      records = List.call(%{page: 1, page_size: 10}).entries
+      record = Enum.at(records, 0)
+
+      assert record.director == nil
+    end
+
     test "paginates results" do
       records = Factory.insert_list(3, :movie)
 

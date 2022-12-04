@@ -142,6 +142,24 @@ defmodule StarWarsAPI.V1.MovieControllerTest do
       assert body == expected_body
     end
 
+    test "returns 200 with movie that has deleted director", %{conn: conn} do
+      deleted_director = Factory.insert(:movie_director, %{deleted_at: DateTime.now!("Etc/UTC")})
+      movie = movie_fixture(%{director: deleted_director})
+
+      conn = get(conn, Routes.v1_movie_path(conn, :show, movie.id))
+
+      assert {"content-type", "application/json; charset=utf-8"} in conn.resp_headers
+
+      body = response(conn, 200)
+
+      expected_body =
+        %{movie | director: nil}
+        |> MovieSerializer.serialize()
+        |> Jason.encode!()
+
+      assert body == expected_body
+    end
+
     test "returns 404 status error when movie id does not exist", %{conn: conn} do
       {_status, _headers, body} =
         assert_error_sent :not_found, fn ->

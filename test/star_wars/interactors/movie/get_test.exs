@@ -19,6 +19,16 @@ defmodule StarWars.Interactors.Movie.GetTest do
                |> Repo.preload(:director)
     end
 
+    test "preloads nil director when director is deleted" do
+      deleted_director = Factory.insert(:movie_director, %{deleted_at: DateTime.now!("Etc/UTC")})
+      movie = fixture(%{director: deleted_director})
+      input = %{id: movie.id}
+
+      loaded_movie = Get.call(input)
+
+      assert loaded_movie.director == nil
+    end
+
     test "raises cast error when id is in an invalid format" do
       input = %{id: "invalid"}
 

@@ -20,19 +20,22 @@ defmodule StarWars.Entities.Planet do
       join_through: "planets_climates",
       on_delete: :delete_all,
       on_replace: :delete,
-      unique: true
+      unique: true,
+      where: [deleted_at: nil]
 
     many_to_many :movies, StarWars.Entities.Movie,
       join_through: "planets_movies",
       on_delete: :delete_all,
       on_replace: :delete,
-      unique: true
+      unique: true,
+      where: [deleted_at: nil]
 
     many_to_many :terrains, StarWars.Entities.Terrain,
       join_through: "planets_terrains",
       on_delete: :delete_all,
       on_replace: :delete,
-      unique: true
+      unique: true,
+      where: [deleted_at: nil]
   end
 
   @fields [

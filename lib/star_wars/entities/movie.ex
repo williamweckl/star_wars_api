@@ -17,7 +17,9 @@ defmodule StarWars.Entities.Movie do
     field(:deleted_at, :utc_datetime_usec)
     timestamps(type: :utc_datetime_usec)
 
-    belongs_to :director, StarWars.Entities.MovieDirector, type: :binary_id
+    belongs_to :director, StarWars.Entities.MovieDirector,
+      type: :binary_id,
+      where: [deleted_at: nil]
   end
 
   @fields [
