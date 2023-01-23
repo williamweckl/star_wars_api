@@ -58,7 +58,7 @@ defmodule StarWars.MixProject do
       {:ecto_enum, "~> 1.4"},
 
       # Web requests
-      {:httpoison, "~> 1.8"},
+      {:httpoison, "~> 2.0"},
 
       # API Rate limit
       {:hammer, "~> 6.1"},
